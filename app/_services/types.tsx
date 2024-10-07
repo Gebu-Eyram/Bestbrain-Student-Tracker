@@ -1,0 +1,56 @@
+export type EXAMINATIONS = {
+  name: string;
+  type: string;
+  createdAt: string;
+  status: string;
+  id: number;
+};
+export type SCHOOLDATABASE = {
+  "School Name": string;
+  "Name of Head": string;
+  Contact: string;
+  Location: string;
+  Email: string;
+  District: string;
+  Region: string;
+  Type: string;
+};
+
+export type EXAMSCORES = {
+  name: string;
+  school_id: string;
+  school_name: string;
+  exams_id: string;
+  student_id: string;
+  science_A?: number;
+  science_B?: number;
+  science_tot?: number;
+  social_A?: number;
+  social_B?: number;
+  social_tot?: number;
+  english_A?: number;
+  english_B?: number;
+  english_tot?: number;
+  math_A?: number;
+  math_B?: number;
+  math_tot?: number;
+  gh_lang_A?: number;
+  gh_lang_B?: number;
+  gh_lang_tot?: number;
+  french_A?: number;
+  french_B?: number;
+  french_tot?: number;
+  comp_A?: number;
+  comp_B?: number;
+  comp_tot?: number;
+  c_arts_A?: number;
+  c_arts_B?: number;
+  c_arts_tot?: number;
+  rme_A?: number;
+  rme_B?: number;
+  rme_tot?: number;
+  career_A?: number;
+  career_B?: number;
+  career_tot?: number;
+  overall?: number;
+};
