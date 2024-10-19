@@ -126,9 +126,9 @@ export const SkeletonThree = () => {
         <img
           src="/Student Tracker GraphPage AI.png"
           alt="header"
-          width={800}
-          height={800}
-          className="h-full w-full aspect-square object-cover object-center rounded-sm   transition-all duration-200"
+          width={400}
+          height={400}
+          className="h-full w-full aspect-square scale-150  rounded-sm   transition-all duration-200"
         />
       </div>
     </div>
@@ -142,10 +142,9 @@ export const SkeletonFour = () => {
         <img
           src="/Student Tracker GraphPage Result.png"
           alt="header"
-          width={800}
-          height={800}
-          className="h-full w-full aspect-square object-cover object-center rounded-sm   transition-all duration-200"
+          className="h-full w-full aspect-square object-cover  object-center rounded-xl   transition-all duration-200"
         />
+        <div className="absolute bottom-0 z-40 inset-x-0 max-md:h-8 h-16 max-sm:hidden bg-gradient-to-t from-white dark:from-black via-white dark:via-black to-transparent w-full pointer-events-none" />
       </div>
     </div>
   );
