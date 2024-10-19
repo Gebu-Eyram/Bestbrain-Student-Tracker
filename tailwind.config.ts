@@ -45,6 +45,10 @@ const config: Config = {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
+        filter: {
+          "blur-20": "blur(20px)",
+          "blur-25": "blur(25px)",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -60,6 +64,24 @@ const config: Config = {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      animation: {
+        gradient: "gradient 8s linear infinite",
+        "pop-blob": "pop-blob 5s infinite",
+      },
+
+      keyframes: {
+        gradient: {
+          to: {
+            backgroundPosition: "var(--bg-size) 0",
+          },
+        },
+        "pop-blob": {
+          "0%": { transform: "scale(1.4)" },
+          "33%": { transform: "scale(1.2)" },
+          "66%": { transform: "scale(1)" },
+          "100%": { transform: "scale(1.2)" },
+        },
       },
     },
   },

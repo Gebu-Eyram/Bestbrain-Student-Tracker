@@ -529,7 +529,7 @@ export function StudentTableUser({ school_id }: tableProps) {
   }, [UpdateContent]);
 
   return (
-    <Card className="h-full">
+    <Card className="h-full w-full border-none">
       <CardHeader>
         <CardTitle className=" text-2xl lg:text-4xl">Your students</CardTitle>
         <CardDescription>

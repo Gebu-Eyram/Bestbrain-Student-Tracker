@@ -3,15 +3,6 @@
 import { GitCommitVertical } from "lucide-react";
 import { Line, LineChart } from "recharts";
 
-const chartData = [
-  { month: "January", schools: 186, students: 80 },
-  { month: "February", schools: 305, students: 200 },
-  { month: "March", schools: 237, students: 120 },
-  { month: "April", schools: 73, students: 190 },
-  { month: "May", schools: 209, students: 130 },
-  { month: "June", schools: 214, students: 140 },
-];
-
 const chartConfig = {
   schools: {
     label: "Schools",

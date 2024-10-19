@@ -14,14 +14,88 @@ import SchoolsHead, {
 } from "@/components/custom/sections/SchoolComps";
 
 import { db } from "@/utils/db";
-import { Schools, Students } from "@/utils/schema";
+import { Schools, Students, Users } from "@/utils/schema";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import React, { useEffect, useState } from "react";
 import { AreaChart, BarChart } from "lucide-react";
 import AiExplain from "@/components/custom/AiExplain";
 import ExamsCard from "@/components/custom/ExamsCard";
+import { usePathname, useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
+import { eq } from "drizzle-orm";
 
 const AdminSchools = () => {
+  const pathname = usePathname();
+  const router = useRouter();
+  const { user } = useKindeBrowserClient();
+  const { toast } = useToast();
+
+  const [userList, setUserList] = useState<any[]>([]);
+  const [authUser, setAuthUser] = useState<any>(null);
+
+  useEffect(() => {
+    user && setAuthUser(user);
+  }, [user]);
+
+  const GetCurrentUser = async () => {
+    try {
+      const result: any = await db
+        .select()
+        .from(Users)
+        .where(eq(Users.id, authUser?.id));
+      setUserList(result);
+    } catch (error: any) {
+      console.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    authUser && GetCurrentUser();
+  }, [authUser]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      try {
+        if (userList.length > 0 && userList[0].role !== "admin") {
+          console.log(userList);
+          toast({
+            title: "Unauthorized Access",
+            description: "You are not authorized to view this page",
+          });
+          router.push("/dashboard");
+        }
+      } catch (error: any) {
+        console.error(error.message);
+      }
+    }, 4000);
+
+    return () => clearTimeout(timer);
+  }, [userList]);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      try {
+        if (userList[0].role !== "admin") {
+          router.push("/dashboard");
+          toast({
+            title: "Unauthorized Access",
+            description: "You are not authorized to view this page",
+          });
+        }
+        if (userList.length < 1) {
+          router.push("/dashboard");
+          toast({
+            title: "Unauthorized Access",
+            description: "You are not authorized to view this page",
+          });
+        }
+      } catch (error: any) {
+        console.error(error.message);
+      }
+    }, 4000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const [schools, setSchools] = useState<SCHOOLS[]>([]);
   const [students, setStudents] = useState<STUDENTS[]>([]);
   const [schoolsByMonth, setSchoolsByMonth] = useState<
@@ -110,10 +184,6 @@ const AdminSchools = () => {
 
     setSchoolsByMonth(schoolsByMonth);
   }, [schools, students]);
-
-  useEffect(() => {
-    console.log(schoolsByMonth);
-  }, [schoolsByMonth]);
 
   useEffect(() => {
     GetSchools();

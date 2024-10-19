@@ -60,7 +60,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="rounded-md border p-4 w-full max-sm:text-sm overflow-auto ">
-      <div className="flex items-center w-full py-4">
+      <div className="flex items-center flex-wrap w-full py-4">
         <div className="relative max-w-sm  flex-1 items-center ">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
@@ -93,7 +93,7 @@ export function DataTable<TData, TValue>({
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody className="overflow-auto">
+        <TableBody className="w-full overflow-auto">
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
@@ -145,9 +145,9 @@ export function DataTablePagination<TData>({
   table,
 }: DataTablePaginationProps<TData>) {
   return (
-    <div className="flex items-center py-4 w-full mt-6 justify-between px-2">
+    <div className="flex items-center max-[380px]:hidden flex-wrap  py-4 w-full mt-6 justify-between px-2">
       <div className="flex items-center justify-between w-full space-x-6 lg:space-x-8">
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center max-md:hidden space-x-2">
           <p className="text-sm font-medium">Rows</p>
           <Select
             value={`${table.getState().pagination.pageSize}`}
@@ -168,7 +168,7 @@ export function DataTablePagination<TData>({
           </Select>
         </div>
         <div className="flex  ml-auto justify-self-end items-center justify-center text-sm font-medium">
-          <div className="flex w-[100px] ml-auto justify-self-end items-center justify-center text-sm font-medium">
+          <div className="flex max-[380px]:hidden w-[100px] ml-auto justify-self-end items-center justify-center text-sm font-medium">
             Page {table.getState().pagination.pageIndex + 1} of{" "}
             {table.getPageCount()}
           </div>
@@ -238,10 +238,10 @@ export function DataTableViewOptions<TData>({
         <Button
           variant="outline"
           size="sm"
-          className="ml-auto hidden h-8 md:flex"
+          className="ml-auto hidden h-8 md:flex items-center justify-center gap-2"
         >
           <MixerHorizontalIcon className="mr-2 h-4 w-4" />
-          View
+          <span className="max-lg:hidden">View</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[150px]">

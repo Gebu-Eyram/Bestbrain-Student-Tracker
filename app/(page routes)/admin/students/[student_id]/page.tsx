@@ -355,12 +355,6 @@ const StudentPageHeader = ({ student_id }: StudentIdProps) => {
               </CardTitle>
               <LucidePencilRuler className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
-            <CardContent>
-              <div className="text-2xl p-2 font-bold">2</div>
-              <p className="text-xs text-muted-foreground">
-                Examinations registered for student.
-              </p>
-            </CardContent>
           </Card>
         </Card>
       </div>

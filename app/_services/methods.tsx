@@ -8,6 +8,7 @@ import {
   Schools,
   ScoreTable,
   Students,
+  Users,
 } from "@/utils/schema";
 import { and, eq } from "drizzle-orm";
 import { SCHOOLDATABASE } from "./types";
@@ -21,6 +22,16 @@ export const DeleteSchool = async (id: string) => {
     console.log(error);
   }
 };
+
+export const DeleteUser = async (id: string) => {
+  try {
+    const result = await db.delete(Users).where(eq(Users.id, id));
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const DeleteStudent = async (id: string) => {
   try {
     const result = await db.delete(Students).where(eq(Students.id, id));

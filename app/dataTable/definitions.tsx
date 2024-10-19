@@ -17,7 +17,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { STUDENTS } from "@/components/custom/sections/admin/pageComp/StudentComponents";
+import {
+  STUDENTS,
+  USERS,
+} from "@/components/custom/sections/admin/pageComp/StudentComponents";
 import { DeleteAlert } from "@/components/custom/sections/admin/SchoolDetailsComps";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
@@ -50,7 +53,7 @@ export const SchoolColumns: ColumnDef<SCHOOLS>[] = [
       const school = row.original;
 
       return (
-        <div className="max-sm:hidden">
+        <div className="">
           <Avatar>
             <Image
               alt={school.name}
@@ -111,7 +114,7 @@ export const SchoolColumns: ColumnDef<SCHOOLS>[] = [
     header: ({ column }) => {
       return (
         <DataTableColumnHeader
-          className="max-sm:hidden"
+          className="max-md:hidden"
           column={column}
           title="Email"
         />
@@ -121,7 +124,7 @@ export const SchoolColumns: ColumnDef<SCHOOLS>[] = [
       const school = row.original;
 
       return (
-        <p className=" max-sm:hidden max-sm:max-w-[100px] line-clamp-1">
+        <p className=" max-md:hidden max-sm:max-w-[100px] line-clamp-1">
           <span className="line-clamp-1 w-full"> {school.email}</span>
         </p>
       );
@@ -293,12 +296,20 @@ export const StudentColumns: ColumnDef<STUDENTS>[] = [
             </DropdownMenuItem>
 
             <DropdownMenuSeparator />
-            <Link className="h-full" href={`/admin/students/${student.id}`}>
+            <Link className="h-full" href={`/details/students/${student.id}`}>
               <DropdownMenuItem
                 className=" cursor-pointer rounded-sm font-medium  "
                 onClick={() => setOpen(false)}
               >
-                View
+                Student
+              </DropdownMenuItem>
+            </Link>
+            <Link className="h-full" href={`/results/${student.id}`}>
+              <DropdownMenuItem
+                className=" cursor-pointer rounded-sm font-medium  "
+                onClick={() => setOpen(false)}
+              >
+                Results
               </DropdownMenuItem>
             </Link>
             <div onClick={() => setOpen(false)}>
@@ -355,13 +366,200 @@ export const StudentColumnsUser: ColumnDef<STUDENTS>[] = [
             >
               Copy name
             </DropdownMenuItem>
-
+            <Link className="h-full" href={`/results/${student.id}`}>
+              <DropdownMenuItem className=" cursor-pointer rounded-sm font-medium  ">
+                Results
+              </DropdownMenuItem>
+            </Link>
             <DropdownMenuSeparator />
             <Link className="h-full" href={`/details/students/${student.id}`}>
               <DropdownMenuItem className=" cursor-pointer rounded-sm font-medium  ">
-                View
+                Details
               </DropdownMenuItem>
             </Link>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
+  },
+];
+
+export const MiniStudentColumnsUser: ColumnDef<STUDENTS>[] = [
+  {
+    accessorKey: "name",
+    header: ({ column }) => {
+      return (
+        <DataTableColumnHeader className="" column={column} title="Name" />
+      );
+    },
+  },
+
+  {
+    id: "actions",
+    cell: ({ row }) => {
+      const student = row.original;
+
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuItem
+              className=""
+              onClick={() => navigator.clipboard.writeText(student.name)}
+            >
+              Copy name
+            </DropdownMenuItem>
+            <Link className="h-full" href={`/results/${student.id}`}>
+              <DropdownMenuItem className=" cursor-pointer rounded-sm font-medium  ">
+                Results
+              </DropdownMenuItem>
+            </Link>
+            <DropdownMenuSeparator />
+            <Link className="h-full" href={`/details/students/${student.id}`}>
+              <DropdownMenuItem className=" cursor-pointer rounded-sm font-medium  ">
+                Details
+              </DropdownMenuItem>
+            </Link>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
+  },
+];
+
+export const UserColumns: ColumnDef<USERS>[] = [
+  {
+    // id: "status",
+    id: "Picture",
+    cell: ({ row }) => {
+      const user = row.original;
+
+      return (
+        <div className="max-sm:hidden">
+          <Avatar>
+            <Image
+              alt={user.name}
+              height={40}
+              width={40}
+              src={user.picture || "/logo.svg"}
+            />
+          </Avatar>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "name",
+    header: ({ column }) => {
+      return (
+        <DataTableColumnHeader className="" column={column} title="Name" />
+      );
+    },
+  },
+  {
+    accessorKey: "email",
+    header: ({ column }) => {
+      return (
+        <DataTableColumnHeader
+          className="max-md:hidden"
+          column={column}
+          title="Email"
+        />
+      );
+    },
+    cell: ({ row }) => {
+      const user = row.original;
+
+      return (
+        <p className=" max-md:hidden max-sm:max-w-[100px] line-clamp-1">
+          <span className="line-clamp-1 w-full"> {user.email}</span>
+        </p>
+      );
+    },
+  },
+  {
+    accessorKey: "role",
+    header: ({ column }) => {
+      return (
+        <DataTableColumnHeader className="" column={column} title="Role" />
+      );
+    },
+    cell: ({ row }) => {
+      const user = row.original;
+
+      return <Badge className="  capitalize cursor-pointer">{user.role}</Badge>;
+    },
+  },
+  {
+    accessorKey: "createdAt",
+    header: ({ column }) => {
+      return (
+        <DataTableColumnHeader
+          className="max-sm:hidden"
+          column={column}
+          title="Date"
+        />
+      );
+    },
+    cell: ({ row }) => {
+      const school = row.original;
+
+      return (
+        <p className=" max-sm:hidden max-sm:max-w-[100px] line-clamp-1">
+          <span className="line-clamp-1 w-full"> {school.createdAt}</span>
+        </p>
+      );
+    },
+  },
+
+  {
+    id: "actions",
+    cell: ({ row }) => {
+      const user = row.original;
+
+      const [open, setOpen] = useState(false);
+      const { UpdateContent, setUpdateContent } =
+        useContext(UpdateContentContext);
+
+      useEffect(() => {
+        setOpen(false);
+      }, [UpdateContent]);
+
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuItem
+              className=""
+              onClick={() => navigator.clipboard.writeText(user.name)}
+            >
+              Copy name
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => navigator.clipboard.writeText(user.email)}
+            >
+              Copy mail
+            </DropdownMenuItem>
+            <DropdownMenuSeparator className="bg-border" />
+
+            <DropdownMenuItem className=" h-full mb-1  rounded-sm cursor-pointer font-medium text-white/90 ">
+              Change Role
+            </DropdownMenuItem>
+            <DropdownMenuItem className="bg-primary h-full  rounded-sm cursor-pointer font-medium text-white/90 ">
+              Delete
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

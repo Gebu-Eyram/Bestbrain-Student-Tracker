@@ -17,11 +17,11 @@ export type SCHOOLDATABASE = {
 };
 
 export type EXAMSCORES = {
-  name: string;
-  school_id: string;
-  school_name: string;
-  exams_id: string;
-  student_id: string;
+  name?: string;
+  school_id?: string;
+  school_name?: string;
+  exams_id?: string;
+  student_id?: string;
   science_A?: number;
   science_B?: number;
   science_tot?: number;

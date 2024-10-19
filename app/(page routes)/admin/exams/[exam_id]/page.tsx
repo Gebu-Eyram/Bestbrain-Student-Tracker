@@ -58,7 +58,10 @@ const page = ({ params }: PageProps) => {
             <div className="pl-6 border-t py-6">
               <h3 className="text-primary mb-2">What you can do</h3>
               {Features.map((feature, index) => (
-                <div className="flex items-center gap-2 py-2 text-sm">
+                <div
+                  className="flex items-center gap-2 py-2 text-sm"
+                  key={index}
+                >
                   <Check className="w-4 h-4 text-primary" />
                   <span className="w-full line-clamp-1">{feature}</span>
                 </div>

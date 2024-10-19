@@ -32,6 +32,7 @@ import { Users } from "@/utils/schema";
 import { PostNewUser } from "@/app/(page routes)/admin/schools/add/page";
 import { ModeToggle } from "../sections/SchoolComps";
 import { SearchCommand } from "@/components/shadcn/SearchCommand";
+import { Badge } from "@/components/ui/badge";
 
 // import { Input } from "../ui/input";
 // import GlobalApi from "@/app/_services/GlobalApi";
@@ -66,16 +67,17 @@ const Header = () => {
   }, [pathname, navLinks]);
   const { user } = useKindeBrowserClient();
   const [userList, setUserList] = useState<any[]>([]);
+  const [currentUser, setCurrentUser] = useState<any>(null);
 
   const GetResultsUsers = async () => {
     try {
       const result: any = await db.select().from(Users);
-
       setUserList(result);
     } catch (error: any) {
       console.error(error.message);
     }
   };
+
   const [userExists, setUserExists] = useState<boolean>(false);
   const [NotuserExistsFinal, setNotUserExistsFinal] = useState<boolean>(false);
   const [notUserExists, setNotUserExists] = useState<boolean>(false);
@@ -87,10 +89,10 @@ const Header = () => {
           (dbUser) => dbUser.id === user.id
         );
         if (preExistingUser) {
-          console.log("User exists");
+          setCurrentUser(preExistingUser);
+
           setNotUserExists(false);
         } else {
-          console.log("User does not exist");
           setNotUserExists(true);
         }
       }
@@ -138,8 +140,9 @@ const Header = () => {
           </BreadcrumbList>
         </Breadcrumb>
       )}
-      <ModeToggle />
+
       <SearchCommand />
+      <ModeToggle />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
@@ -158,14 +161,30 @@ const Header = () => {
             />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent className="max-w-[200px]" align="end">
           {user && (
             <DropdownMenuItem>
-              <div className="flex flex-col w-full">
-                <p className="font-semibold text-sm">
-                  {user?.given_name} {user?.family_name}
-                </p>
-                <p className="text-xs">{user?.email}</p>
+              <div className="flex flex-col w-full ">
+                <div className="flex items-center justify-between">
+                  <p className="font-semibold text-sm w-full line-clamp-1 max-w-[60%]">
+                    {user?.given_name} {user?.family_name}
+                  </p>
+                  {
+                    <Badge
+                      variant={
+                        currentUser?.role === "admin" ? "outline" : "secondary"
+                      }
+                      className={`capitalize text-xs ${
+                        currentUser?.role === "admin"
+                          ? "bg-green-700 hover:bg-green-800"
+                          : "bg-pink-700 hover:bg-pink-800"
+                      } `}
+                    >
+                      {currentUser?.role || "user"}
+                    </Badge>
+                  }
+                </div>
+                <p className="text-xs w-full line-clamp-1">{user?.email}</p>
               </div>
             </DropdownMenuItem>
           )}

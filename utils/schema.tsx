@@ -37,6 +37,7 @@ export const Users = pgTable("users", {
   id: varchar("id").primaryKey(),
   email: varchar("email").notNull(),
   picture: varchar("picture").notNull(),
+  role: varchar("role").notNull().default("user"),
 });
 
 export const Students = pgTable("students", {

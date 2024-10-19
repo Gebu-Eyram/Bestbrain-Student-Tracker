@@ -59,7 +59,7 @@ export function MinimalDataTable<TData, TValue>({
   });
 
   return (
-    <div className="rounded-md border p-4 w-full ">
+    <div className="rounded-md  w-full ">
       <div className="flex items-center w-full py-4">
         <DataTableViewOptions table={table} />
       </div>
@@ -136,7 +136,7 @@ export function DataTablePagination<TData>({
   return (
     <div className="flex items-center py-4 w-full mt-6 justify-between px-2">
       <div className="flex items-center justify-between w-full space-x-6 lg:space-x-8">
-        <div className="flex items-center space-x-2">
+        <div className="hidden items-center space-x-2">
           <p className="text-sm font-medium">Rows</p>
           <Select
             value={`${table.getState().pagination.pageSize}`}
@@ -148,7 +148,7 @@ export function DataTablePagination<TData>({
               <SelectValue placeholder={table.getState().pagination.pageSize} />
             </SelectTrigger>
             <SelectContent side="top">
-              {[10, 20, 30, 40, 50].map((pageSize) => (
+              {[5, 7].map((pageSize) => (
                 <SelectItem key={pageSize} value={`${pageSize}`}>
                   {pageSize}
                 </SelectItem>
@@ -158,7 +158,7 @@ export function DataTablePagination<TData>({
         </div>
         <div className="flex  ml-auto justify-self-end items-center justify-center text-sm font-medium">
           <div className="flex w-[100px] ml-auto justify-self-end items-center justify-center text-sm font-medium">
-            Page {table.getState().pagination.pageIndex + 1} of{" "}
+            {table.getState().pagination.pageIndex + 1} of{" "}
             {table.getPageCount()}
           </div>
           <div className="flex items-center space-x-2">

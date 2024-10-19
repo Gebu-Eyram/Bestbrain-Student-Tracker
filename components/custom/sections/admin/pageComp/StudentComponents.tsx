@@ -55,3 +55,12 @@ export interface STUDENTS {
   createdAt: string;
   school: string;
 }
+
+export interface USERS {
+  id: string;
+  name: string;
+  email: string;
+  createdAt: string;
+  role: string;
+  picture: string;
+}
