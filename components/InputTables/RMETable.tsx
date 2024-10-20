@@ -66,9 +66,7 @@ const RMETable = ({ school_id, exams_id }: SchoolProps) => {
     const post = {
       rme_A: data.rme_A,
       rme_B: data.rme_B,
-      rme_tot: Math.round(
-        ((parseInt(data.rme_A) + parseInt(data.rme_B)) * 100) / 140
-      ),
+      rme_tot: Math.round(data.rme_A + data.rme_B),
     };
 
     exams_id && exams_id !== "" && UpdateExamScore(exams_id, student_id, post);
@@ -135,6 +133,7 @@ const RMETable = ({ school_id, exams_id }: SchoolProps) => {
                   className="text-sm w-fit max-sm:w-full   max-sm:col-span-2 flex gap-1 items-center justify-center"
                   type="submit"
                   onClick={() => {
+                    //@ts-ignore
                     setPostedId(student.student_id);
                   }}
                 >

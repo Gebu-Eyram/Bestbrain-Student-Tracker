@@ -66,9 +66,7 @@ const CArtsTable = ({ school_id, exams_id }: SchoolProps) => {
     const post = {
       c_arts_A: data.c_arts_A,
       c_arts_B: data.c_arts_B,
-      c_arts_tot: Math.round(
-        ((parseInt(data.c_arts_A) + parseInt(data.c_arts_B)) * 100) / 140
-      ),
+      c_arts_tot: Math.round(data.c_arts_A + data.c_arts_B),
     };
 
     exams_id && exams_id !== "" && UpdateExamScore(exams_id, student_id, post);
@@ -135,6 +133,7 @@ const CArtsTable = ({ school_id, exams_id }: SchoolProps) => {
                   className="text-sm w-fit max-sm:w-full   max-sm:col-span-2 flex gap-1 items-center justify-center"
                   type="submit"
                   onClick={() => {
+                    //@ts-ignore
                     setPostedId(student.student_id);
                   }}
                 >

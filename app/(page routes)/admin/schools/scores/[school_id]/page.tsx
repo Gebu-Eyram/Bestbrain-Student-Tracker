@@ -59,7 +59,7 @@ import {
 
 export default page;
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { TabList } from "@headlessui/react";
+
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useEffect, useState } from "react";
 import { STUDENTSCORES } from "@/app/dataTable/form-data-table";

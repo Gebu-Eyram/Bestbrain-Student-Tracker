@@ -66,9 +66,7 @@ const SocialTable = ({ school_id, exams_id }: SchoolProps) => {
     const post = {
       social_A: data.social_A,
       social_B: data.social_B,
-      social_tot: Math.round(
-        ((parseInt(data.social_A) + parseInt(data.social_B)) * 100) / 140
-      ),
+      social_tot: Math.round(data.social_A + data.social_B),
     };
 
     exams_id && exams_id !== "" && UpdateExamScore(exams_id, student_id, post);
@@ -135,6 +133,7 @@ const SocialTable = ({ school_id, exams_id }: SchoolProps) => {
                   className="text-sm w-fit max-sm:w-full   max-sm:col-span-2 flex gap-1 items-center justify-center"
                   type="submit"
                   onClick={() => {
+                    //@ts-ignore
                     setPostedId(student.student_id);
                   }}
                 >

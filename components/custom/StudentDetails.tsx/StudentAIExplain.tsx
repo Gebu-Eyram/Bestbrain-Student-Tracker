@@ -25,19 +25,21 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 interface Props {
   chartData: any;
+  otherPrompt?: string;
 }
 type SUGGESTIONS = {
   suggestion: string;
   reason: string;
 };
-const StudentAIExplain = ({ chartData }: Props) => {
+const StudentAIExplain = ({ chartData, otherPrompt }: Props) => {
   const [loading, setLoading] = useState(false);
   const [explanation, setExplanation] = useState("");
   const [suggestions, setSuggestions] = useState<SUGGESTIONS[]>([]);
   const GenerateExplanation = async (data: any) => {
     setLoading(true);
     const prompt =
-      "Explain this data that was used to plot a graph of student performance and explain the trends as though you were explaining to a business professional.This is a Ghanaian educational data, do not metion this in the explanation. Please be formal and concise but also straightforward and with flair. Mention figures wherever applicable . Please limit the words and use markdown where applicable to make it look elegant. Please know that THIS DATA INDICATES SCORES FOR A SINGULAR STUDENT IN AN EXAMINATION, don't say this in the explanation.. The explanation should be in detail but should not exceed 200 words. Ensure that your values are right. Do not give any suggestions here. Just explain the data.Keep your English simple and clear for the average Ghanaian to understand you. Don't use any jargon. Also do'nt use any quotations to quote labels; do well to fit labels into a sentence without the use of a quotation. Every number and average is an average of scores scored by a student in an exam. The grade interpretation is 100-80=1/ 79-70=2/ 69-60=3/ 59-50=4/ 49-40=5/ 39-30=6/ 29-25=7/ 24-20=8/ 19-0=9 also 1 is Highest, 2 is Higher, 3 is High, 4 is High Average, 5 is Average, 6 is Low Average, 7 is Low, 8 is Lower, 9 is Lowest. Please try to find possible reasons for the trends. Analyse the data deeply too. ";
+      "Explain this data that was used to plot a graph of student performance and explain the trends as though you were explaining to a business professional.This is a Ghanaian educational data, do not metion this in the explanation. Please be formal and concise but also straightforward and with flair. Mention figures wherever applicable . Please limit the words and use markdown where applicable to make it look elegant. Please know that THIS DATA INDICATES SCORES FOR A SINGULAR STUDENT IN AN EXAMINATION, don't say this in the explanation.. The explanation should be in detail but should not exceed 200 words. Ensure that your values are right. Do not give any suggestions here. Just explain the data.Keep your English simple and clear for the average Ghanaian to understand you. Don't use any jargon. Also do'nt use any quotations to quote labels; do well to fit labels into a sentence without the use of a quotation. Every number and average is an average of scores scored by a student in an exam. The grade interpretation is 100-80=1/ 79-70=2/ 69-60=3/ 59-50=4/ 49-40=5/ 39-30=6/ 29-25=7/ 24-20=8/ 19-0=9 also 1 is Highest, 2 is Higher, 3 is High, 4 is High Average, 5 is Average, 6 is Low Average, 7 is Low, 8 is Lower, 9 is Lowest. Please try to find possible reasons for the trends. Analyse the data deeply too. " +
+      otherPrompt;
     const suggestionprompt =
       'Make very informed suggestions to the school owner based on the data, adressing key deficiencies. Please be formal and concise but also straightforward and with flair. Mention figures wherever applicable . Please limit the words and use JSON parsable format only. Make at most three suggestions and at least one suggestion but make sure each suggestion does not exceed 20 words. Ensure that your values are right. Just return the array without any external text such as ```json ["suggestion1", "suggestion2"] ``` In each object, please add a reason for the suggestion. Never under any circumstance should you add  ```json``` to the response. ';
     const FinalPrompt = JSON.stringify(data) + ", " + prompt;

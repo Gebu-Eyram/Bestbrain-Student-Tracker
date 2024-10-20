@@ -66,9 +66,7 @@ const CompTable = ({ school_id, exams_id }: SchoolProps) => {
     const post = {
       comp_A: data.comp_A,
       comp_B: data.comp_B,
-      comp_tot: Math.round(
-        ((parseInt(data.comp_A) + parseInt(data.comp_B)) * 100) / 140
-      ),
+      comp_tot: Math.round(data.comp_A + data.comp_B),
     };
 
     exams_id && exams_id !== "" && UpdateExamScore(exams_id, student_id, post);
@@ -135,6 +133,7 @@ const CompTable = ({ school_id, exams_id }: SchoolProps) => {
                   className="text-sm w-fit max-sm:w-full   max-sm:col-span-2 flex gap-1 items-center justify-center"
                   type="submit"
                   onClick={() => {
+                    //@ts-ignore
                     setPostedId(student.student_id);
                   }}
                 >

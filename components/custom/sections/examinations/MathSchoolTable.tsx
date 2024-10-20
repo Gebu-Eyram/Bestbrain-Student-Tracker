@@ -8,8 +8,7 @@ import { Examinations, ScoreTable } from "@/utils/schema";
 import { and, eq } from "drizzle-orm";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+
 import { Loader2, PlusCircleIcon, X } from "lucide-react";
 
 export interface SchoolProps {
@@ -17,7 +16,7 @@ export interface SchoolProps {
   exams_id?: string | undefined;
 }
 
-const GHLangTable = ({ school_id, exams_id }: SchoolProps) => {
+const MathSchoolTable = ({ school_id, exams_id }: SchoolProps) => {
   const [UpdatedStudents, setUpdatedStudents] = useState<boolean>(false);
   const [postedId, setPostedId] = useState<string>("");
 
@@ -64,9 +63,11 @@ const GHLangTable = ({ school_id, exams_id }: SchoolProps) => {
 
     const student_id = data.id;
     const post = {
-      gh_lang_A: data.gh_lang_A,
-      gh_lang_B: data.gh_lang_B,
-      gh_lang_tot: Math.round(data.gh_lang_A + data.gh_lang_B),
+      math_A: data.math_A,
+      math_B: data.math_B,
+      math_tot: Math.round(
+        ((parseInt(data.math_A) + parseInt(data.math_B)) * 100) / 140
+      ),
     };
 
     exams_id && exams_id !== "" && UpdateExamScore(exams_id, student_id, post);
@@ -93,54 +94,18 @@ const GHLangTable = ({ school_id, exams_id }: SchoolProps) => {
           <h1 className="font-medium hidden sm:flex text-muted-foreground/80">
             Section B
           </h1>
-          <h1 className="font-medium hidden sm:flex text-muted-foreground/80">
-            Actions
-          </h1>
         </div>
         {StudentsList && StudentsList?.length > 0 ? (
           StudentsList?.map((student, index) => (
             <div>
-              <form
-                name={student.student_id}
-                key={index}
-                onSubmit={handleSubmit(onSubmit)}
-                className="grid sm:grid-cols-5 gap-2 w-full"
-              >
+              <div key={index} className="grid sm:grid-cols-5 gap-2 w-full">
                 <h1 className="col-span-2 font-medium text-sm">
                   {student.name}
                 </h1>
-                <input
-                  {...register(`students.${student.student_id}.id`)}
-                  defaultValue={student.student_id}
-                  className="hidden"
-                />
-
-                <Input
-                  max={40}
-                  min={0}
-                  type="number"
-                  defaultValue={student.gh_lang_A}
-                  {...register(`students.${student.student_id}.gh_lang_A`)}
-                />
-                <Input
-                  type="number"
-                  max={100}
-                  min={0}
-                  defaultValue={student.gh_lang_B}
-                  {...register(`students.${student.student_id}.gh_lang_B`)}
-                />
-                <Button
-                  className="text-sm w-fit max-sm:w-full   max-sm:col-span-2 flex gap-1 items-center justify-center"
-                  type="submit"
-                  onClick={() => {
-                    //@ts-ignore
-                    setPostedId(student.student_id);
-                  }}
-                >
-                  <PlusCircleIcon className="w-4 h-4" />
-                  Submit
-                </Button>
-              </form>
+                <div className=" font-medium text-sm">{student.math_A}</div>
+                <div className=" font-medium text-sm">{student.math_B}</div>
+                <div className=" font-medium text-sm">{student.math_tot}</div>
+              </div>
             </div>
           ))
         ) : (
@@ -158,4 +123,4 @@ const GHLangTable = ({ school_id, exams_id }: SchoolProps) => {
   );
 };
 
-export default GHLangTable;
+export default MathSchoolTable;

@@ -16,6 +16,8 @@ import DashboardStudentTable, {
 } from "./DashboardStudentTable";
 import DashboardGraph1 from "./dashboard/graph-1";
 import { IconCloudDemo } from "./dashboard/IconCloud";
+import { DashboardGraph2 } from "./dashboard/graph-2";
+import DashboardGraph3 from "./dashboard/graph-3";
 
 export const RevealBento = () => {
   return (
@@ -37,6 +39,7 @@ export const RevealBento = () => {
         <Graph1 />
 
         <StudentTableBlock />
+        <Graph3 />
       </motion.div>
     </div>
   );
@@ -105,7 +108,7 @@ const HeaderBlock = () => {
 const SocialsBlock = () => (
   <>
     <SchoolDetailsBlock />
-    <AboutBlock />
+    <DashboardGraph2 />
     <StudentLinkBlock />
   </>
 );
@@ -167,13 +170,19 @@ const SchoolDetailsBlock = () => {
 
 const AboutBlock = () => (
   <Block className="col-span-12 row-span-2  md:col-span-6 xl:col-span-4">
-    {/* <IconCloudDemo /> */}
+    <DashboardGraph2 />
   </Block>
 );
 
 const Graph1 = () => (
   <Block className="col-span-12 row-span-1 h-fit p-0 border-none md:col-span-6 xl:col-span-4">
     <DashboardGraph1 />
+  </Block>
+);
+
+const Graph3 = () => (
+  <Block className="col-span-12 row-span-1 h-fit p-0 border-none md:col-span-6 xl:col-span-4">
+    <DashboardGraph3 />
   </Block>
 );
 const StudentTableBlock = () => {
@@ -183,7 +192,7 @@ const StudentTableBlock = () => {
     user ? setSchool_id(user?.id) : console.log("No user");
   }, [user]);
   return (
-    <Block className="col-span-12">
+    <Block className="col-span-12  row-span-2 md:col-span-6 xl:col-span-8">
       <DashboardStudentTable />
     </Block>
   );

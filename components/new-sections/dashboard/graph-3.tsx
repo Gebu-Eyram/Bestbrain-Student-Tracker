@@ -26,7 +26,7 @@ import { EXAMINATIONS } from "@/app/_services/types";
 import { db } from "@/utils/db";
 import { Examinations, ScoreTable } from "@/utils/schema";
 
-export default function DashboardGraph1() {
+export default function DashboardGraph3() {
   const { user } = useKindeBrowserClient();
 
   // Details
@@ -39,6 +39,25 @@ export default function DashboardGraph1() {
   const [prompt, setPrompt] = useState<string>(
     "This data shows the average scores of a student in the subjects of the recent examination for a school. Please explain to the school owner the trends in the student's performance, and highlight any problems and remedies to scores. Please make reference to the score grading and site the student's performance in the context of the school's average performance.Every number and average is an average of scores scored by a student in an exam. The grade interpretation is 100-80 interpreted as HIGHEST 79-70 interpreted as HIGHER 69-60 interpreted as HIGH 59-50 interpreted as HIGH AVERAGE 49-40 interpreted as AVERAGE 39-30 interpreted as LOW AVERAGE 29-25 interpreted as LOW 24-20 interpreted as LOWER 19-0 interpreted as LOWEST. Any score less than 50 is below average. Please try to find possible reasons for the trends and match the aveage scores accordingly to the grades. Analyse the data deeply too."
   );
+
+  const chartData = [
+    { month: "January", desktop: 186, mobile: 80 },
+    { month: "February", desktop: 305, mobile: 200 },
+    { month: "March", desktop: 237, mobile: 120 },
+    { month: "April", desktop: 73, mobile: 190 },
+    { month: "May", desktop: 209, mobile: 130 },
+    { month: "June", desktop: 214, mobile: 140 },
+  ];
+  const chartConfig = {
+    desktop: {
+      label: "Desktop",
+      color: "hsl(var(--chart-1))",
+    },
+    mobile: {
+      label: "Mobile",
+      color: "hsl(var(--chart-2))",
+    },
+  } satisfies ChartConfig;
   useEffect(() => {
     user && setSchool_id(user.id);
   }, [user]);
@@ -178,34 +197,46 @@ export default function DashboardGraph1() {
   }, [school_id]);
 
   return (
-    <Card className="w-full">
-      <CardHeader className="p-4 text-center">
-        <AiExplain chartData={examScores} otherPrompt={prompt} />
-        <CardTitle>Average Student Performance</CardTitle>
-        <CardDescription>{recentExam?.name}</CardDescription>
+    <Card>
+      <CardHeader>
+        <CardTitle>Your journey with us</CardTitle>
+        <CardDescription>Average performance in last 3 exams</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={examScores}>
+          <LineChart
+            accessibilityLayer
+            data={chartData}
+            margin={{
+              left: 12,
+              right: 12,
+            }}
+          >
             <CartesianGrid vertical={false} />
-
             <XAxis
-              dataKey="subject"
+              dataKey="month"
               tickLine={false}
-              tickMargin={10}
               axisLine={false}
+              tickMargin={8}
               tickFormatter={(value) => value.slice(0, 3)}
             />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="dashed" />}
+            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+            <Line
+              dataKey="desktop"
+              type="monotone"
+              stroke="var(--color-desktop)"
+              strokeWidth={2}
+              dot={false}
             />
-            <Bar dataKey="total" fill="var(--color-total)" radius={4} />
-          </BarChart>
+            <Line
+              dataKey="mobile"
+              type="monotone"
+              stroke="var(--color-mobile)"
+              strokeWidth={2}
+              dot={false}
+            />
+          </LineChart>
         </ChartContainer>
-        <CardFooter className="flex flex-col p-2 border-t justify-center">
-          Exam average: {examAverage.toFixed(2)}
-        </CardFooter>
       </CardContent>
     </Card>
   );
@@ -233,3 +264,5 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+
+import { LineChart } from "recharts";

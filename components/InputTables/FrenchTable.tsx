@@ -66,9 +66,7 @@ const FrenchTable = ({ school_id, exams_id }: SchoolProps) => {
     const post = {
       french_A: data.french_A,
       french_B: data.french_B,
-      french_tot: Math.round(
-        ((parseInt(data.french_A) + parseInt(data.french_B)) * 100) / 140
-      ),
+      french_tot: Math.round(data.french_A + data.french_B),
     };
 
     exams_id && exams_id !== "" && UpdateExamScore(exams_id, student_id, post);
@@ -135,6 +133,7 @@ const FrenchTable = ({ school_id, exams_id }: SchoolProps) => {
                   className="text-sm w-fit max-sm:w-full   max-sm:col-span-2 flex gap-1 items-center justify-center"
                   type="submit"
                   onClick={() => {
+                    //@ts-ignore
                     setPostedId(student.student_id);
                   }}
                 >

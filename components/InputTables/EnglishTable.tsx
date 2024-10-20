@@ -66,9 +66,7 @@ const EnglishTable = ({ school_id, exams_id }: SchoolProps) => {
     const post = {
       english_A: data.english_A,
       english_B: data.english_B,
-      english_tot: Math.round(
-        ((parseInt(data.english_A) + parseInt(data.english_B)) * 100) / 140
-      ),
+      english_tot: Math.round(data.english_A + data.english_B),
     };
 
     exams_id && exams_id !== "" && UpdateExamScore(exams_id, student_id, post);
@@ -135,6 +133,7 @@ const EnglishTable = ({ school_id, exams_id }: SchoolProps) => {
                   className="text-sm w-fit max-sm:w-full   max-sm:col-span-2 flex gap-1 items-center justify-center"
                   type="submit"
                   onClick={() => {
+                    //@ts-ignore
                     setPostedId(student.student_id);
                   }}
                 >

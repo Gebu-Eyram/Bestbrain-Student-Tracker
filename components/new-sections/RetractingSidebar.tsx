@@ -72,7 +72,7 @@ export const RetractibleSidebar = () => {
   return (
     <motion.nav
       layout
-      className="max-sm:hidden sticky top-0 h-screen shrink-0 border-r z-50   bg-background p-2"
+      className="max-lg:hidden sticky top-0 h-screen shrink-0 border-r z-50   bg-background p-2"
       style={{
         width: open ? "225px" : "fit-content",
       }}
