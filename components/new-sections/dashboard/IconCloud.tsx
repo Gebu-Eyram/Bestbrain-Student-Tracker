@@ -18,7 +18,7 @@ const slugs = [
   "postgresql",
 
   "git",
-  "jira",
+
   "github",
   "gitlab",
   "shadcn",
@@ -38,7 +38,7 @@ const slugs = [
 
 export function IconCloudDemo() {
   return (
-    <div className="relative flex size-full max-w-lg items-center justify-center overflow-hidden rounded-lg dark  bg-transparent px-6 pb-20 pt-8 ">
+    <div className="relative flex size-full max-w-lg items-center justify-center overflow-hidden rounded-lg   bg-transparent px-6 pb-20 pt-8 ">
       <IconCloud iconSlugs={slugs} />
     </div>
   );

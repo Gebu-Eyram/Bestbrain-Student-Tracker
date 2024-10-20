@@ -68,9 +68,25 @@ const config: Config = {
       animation: {
         gradient: "gradient 8s linear infinite",
         "pop-blob": "pop-blob 5s infinite",
+        "infinite-scroll": "infinite-scroll 25s linear infinite",
+        spotlight: "spotlight 2s ease .75s 1 forwards",
       },
 
       keyframes: {
+        spotlight: {
+          "0%": {
+            opacity: "0",
+            transform: "translate(-72%, -62%) scale(0.5)",
+          },
+          "100%": {
+            opacity: " 1",
+            transform: "translate(-50%,-40%) scale(1)",
+          },
+        },
+        "infinite-scroll": {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-100%)" },
+        },
         gradient: {
           to: {
             backgroundPosition: "var(--bg-size) 0",

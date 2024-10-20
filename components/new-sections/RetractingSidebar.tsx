@@ -38,7 +38,7 @@ import { PiStudentFill, PiExamFill } from "react-icons/pi";
 import { IoMdAnalytics } from "react-icons/io";
 
 export const RetractibleSidebar = () => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const router = useRouter();
 

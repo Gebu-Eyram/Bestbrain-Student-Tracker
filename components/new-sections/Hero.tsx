@@ -38,13 +38,14 @@ export const AuroraHero = () => {
 
   return (
     <motion.section
+      id="home"
       style={{
         backgroundImage,
       }}
-      className="relative grid min-h-screen dark place-content-center overflow-hidden bg-black px-4 py-24 text-gray-200"
+      className="relative grid sm:min-h-screen dark place-content-center overflow-hidden bg-black px-4 py-24 text-gray-200"
     >
       <div className="relative z-50 flex flex-col items-center">
-        <span className="mb-1.5 inline-block rounded-full max-[300px]:hidden  text-sm">
+        <span className="mb-1.5 inline-block rounded-full max-sm:hidden  text-sm">
           <GradientText />
         </span>
         <h1 className="max-w-4xl bg-gradient-to-br from-white to-gray-500 bg-clip-text text-center text-4xl  leading-tight text-transparent sm:text-5xl sm:leading-tight md:text-6xl font-extrabold md:leading-tight font-[family-name:var(--font-sora)]">
@@ -80,6 +81,7 @@ export const AuroraHero = () => {
           <Stars radius={50} count={3000} factor={4} fade speed={2} />
         </Canvas>
       </div>
+
       <div className="absolute w-full z-10 h-60 bg-gradient-to-b bottom-0 from-transparent  to-black" />
     </motion.section>
   );

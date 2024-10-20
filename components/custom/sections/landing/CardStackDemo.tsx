@@ -1,13 +1,11 @@
 "use client";
 
+import { CardStack } from "@/components/card-stack";
 import { cn } from "@/lib/utils";
-import { CardStack } from "../card-stack";
+
 export function CardStackDemo() {
   return (
-    <div
-      id="testimonials"
-      className="flex dark items-start sm:py-20 max-w-7xl justify-center gap-x-20 w-full mx-auto p-2 max-sm:flex-col"
-    >
+    <div className="flex items-start sm:py-20 max-w-7xl justify-center gap-x-20 w-full mx-auto p-2 max-sm:flex-col">
       <div>
         <h1 className="text-4xl w-full sm:max-w-md mt-4 font-semibold  font-[family-name:var(--font-sora)] text-base-900 lg:text-balance tracking-wide">
           Don't just take <span className="text-indigo-500">our word</span> for
@@ -68,9 +66,8 @@ const CARDS = [
     designation: "Kumasi, Ghana",
     content: (
       <p>
-        What I love about this <Highlight>map app</Highlight> by Bestbrain is
-        the ability to locate schools and get directions in the easiest way
-        possible.
+        What I love about this <Highlight>performance tracker</Highlight> is the
+        ability to plot graphs and charts to help me understand my students.'
       </p>
     ),
   },
@@ -80,9 +77,9 @@ const CARDS = [
     designation: "Bestbrain User, Takoradi",
     content: (
       <p>
-        I am very impressed with the user experience of the Bestbrain app. It is
-        very easy to use and navigate. This is a{" "}
-        <Highlight>very great</Highlight> company.
+        I am very impressed with the user experience of the Bestbrain apps. It
+        is very easy to use and navigate. This is a{" "}
+        <Highlight>very great</Highlight> company.{" "}
       </p>
     ),
   },
