@@ -66,7 +66,9 @@ const GHLangTable = ({ school_id, exams_id }: SchoolProps) => {
     const post = {
       gh_lang_A: data.gh_lang_A,
       gh_lang_B: data.gh_lang_B,
-      gh_lang_tot: Math.round(data.gh_lang_A + data.gh_lang_B),
+      gh_lang_tot: Math.round(
+        ((parseInt(data.gh_lang_A) + parseInt(data.gh_lang_B)) * 100) / 100
+      ),
     };
 
     exams_id && exams_id !== "" && UpdateExamScore(exams_id, student_id, post);

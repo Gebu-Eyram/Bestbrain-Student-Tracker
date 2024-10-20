@@ -66,7 +66,9 @@ const EnglishTable = ({ school_id, exams_id }: SchoolProps) => {
     const post = {
       english_A: data.english_A,
       english_B: data.english_B,
-      english_tot: Math.round(data.english_A + data.english_B),
+      english_tot: Math.round(
+        ((parseInt(data.english_A) + parseInt(data.english_B)) * 100) / 100
+      ),
     };
 
     exams_id && exams_id !== "" && UpdateExamScore(exams_id, student_id, post);

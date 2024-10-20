@@ -66,7 +66,9 @@ const CareerTable = ({ school_id, exams_id }: SchoolProps) => {
     const post = {
       career_A: data.career_A,
       career_B: data.career_B,
-      career_tot: Math.round(data.career_A + data.career_B),
+      career_tot: Math.round(
+        ((parseInt(data.career_A) + parseInt(data.career_B)) * 100) / 100
+      ),
     };
 
     exams_id && exams_id !== "" && UpdateExamScore(exams_id, student_id, post);

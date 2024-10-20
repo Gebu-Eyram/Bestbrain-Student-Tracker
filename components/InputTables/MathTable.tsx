@@ -66,7 +66,9 @@ const MathTable = ({ school_id, exams_id }: SchoolProps) => {
     const post = {
       math_A: data.math_A,
       math_B: data.math_B,
-      math_tot: Math.round(data.math_A + data.math_B),
+      math_tot: Math.round(
+        ((parseInt(data.math_A) + parseInt(data.math_B)) * 100) / 100
+      ),
     };
 
     exams_id && exams_id !== "" && UpdateExamScore(exams_id, student_id, post);

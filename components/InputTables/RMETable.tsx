@@ -66,7 +66,9 @@ const RMETable = ({ school_id, exams_id }: SchoolProps) => {
     const post = {
       rme_A: data.rme_A,
       rme_B: data.rme_B,
-      rme_tot: Math.round(data.rme_A + data.rme_B),
+      rme_tot: Math.round(
+        ((parseInt(data.rme_A) + parseInt(data.rme_B)) * 100) / 100
+      ),
     };
 
     exams_id && exams_id !== "" && UpdateExamScore(exams_id, student_id, post);

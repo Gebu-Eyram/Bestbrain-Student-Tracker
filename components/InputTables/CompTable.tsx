@@ -66,7 +66,9 @@ const CompTable = ({ school_id, exams_id }: SchoolProps) => {
     const post = {
       comp_A: data.comp_A,
       comp_B: data.comp_B,
-      comp_tot: Math.round(data.comp_A + data.comp_B),
+      comp_tot: Math.round(
+        ((parseInt(data.comp_A) + parseInt(data.comp_B)) * 100) / 100
+      ),
     };
 
     exams_id && exams_id !== "" && UpdateExamScore(exams_id, student_id, post);

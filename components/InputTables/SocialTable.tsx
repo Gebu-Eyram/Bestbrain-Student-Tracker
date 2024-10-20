@@ -66,7 +66,9 @@ const SocialTable = ({ school_id, exams_id }: SchoolProps) => {
     const post = {
       social_A: data.social_A,
       social_B: data.social_B,
-      social_tot: Math.round(data.social_A + data.social_B),
+      social_tot: Math.round(
+        ((parseInt(data.social_A) + parseInt(data.social_B)) * 100) / 100
+      ),
     };
 
     exams_id && exams_id !== "" && UpdateExamScore(exams_id, student_id, post);
