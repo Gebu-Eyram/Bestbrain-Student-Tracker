@@ -6,12 +6,14 @@ import {
   LineChart,
   Settings2,
 } from "lucide-react";
+import { MdDashboard } from "react-icons/md";
+import { PiExamFill } from "react-icons/pi";
 
 export const navLinks = [
   {
     href: "/dashboard",
     label: "Dashboard",
-    icon: HomeIcon,
+    icon: MdDashboard,
   },
   {
     href: "/dashboard/students",
@@ -21,13 +23,13 @@ export const navLinks = [
   {
     href: "/dashboard/examinations",
     label: "Examinations",
-    icon: BookOpenCheck,
+    icon: PiExamFill,
   },
-  {
-    href: "/dashboard/analytics",
-    label: "Analytics",
-    icon: LineChart,
-  },
+  // {
+  //   href: "/dashboard/analytics",
+  //   label: "Analytics",
+  //   icon: LineChart,
+  // },
 ];
 
 export const allRoutes = [

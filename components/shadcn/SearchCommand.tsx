@@ -23,12 +23,16 @@ import {
 import { Button } from "../ui/button";
 import {
   BookOpenCheck,
+  Computer,
   GraduationCap,
   Home,
   LayoutDashboardIcon,
+  Moon,
   Search,
+  Sun,
 } from "lucide-react";
 import Link from "next/link";
+import { useTheme } from "next-themes";
 
 export function SearchCommand() {
   const [open, setOpen] = React.useState(false);
@@ -45,6 +49,8 @@ export function SearchCommand() {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
+  const { setTheme } = useTheme();
+
   return (
     <>
       <Button
@@ -54,7 +60,7 @@ export function SearchCommand() {
       >
         <span className=" flex gap-2 items-center max-sm:pr-4">
           <Search size={16} />
-          Search anything...
+          <span className="max-[330px]:hidden"> Search anything...</span>
         </span>
         <span className="flex max-sm:hidden   whitespace-nowrap rounded-lg  ease-in px-3 py-1  bg-muted  group-hover:bg-background shadow">
           ⌘ J
@@ -101,6 +107,41 @@ export function SearchCommand() {
                 <BookOpenCheck className="mr-2 h-4 w-4" />
                 <span>Examinations</span>
               </Link>
+            </CommandItem>
+          </CommandGroup>
+          <CommandGroup heading="Theme">
+            <CommandItem className="flex gap-2">
+              <div
+                className="flex gap-2 h-full w-full"
+                onClick={() => {
+                  setTheme("light");
+                }}
+              >
+                <Sun className="w-4 h-4" />
+                Light
+              </div>
+            </CommandItem>
+            <CommandItem className="flex gap-2">
+              <div
+                className="flex gap-2 h-full w-full"
+                onClick={() => {
+                  setTheme("dark");
+                }}
+              >
+                <Moon className="w-4 h-4" />
+                Dark
+              </div>
+            </CommandItem>
+            <CommandItem className="flex">
+              <div
+                className="flex gap-2 h-full w-full"
+                onClick={() => {
+                  setTheme("system");
+                }}
+              >
+                <Computer className="w-4 h-4" />
+                System
+              </div>
             </CommandItem>
           </CommandGroup>
           <CommandSeparator />

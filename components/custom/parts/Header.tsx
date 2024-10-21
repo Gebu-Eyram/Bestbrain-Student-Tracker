@@ -33,6 +33,8 @@ import { PostNewUser } from "@/app/(page routes)/admin/schools/add/page";
 import { ModeToggle } from "../sections/SchoolComps";
 import { SearchCommand } from "@/components/shadcn/SearchCommand";
 import { Badge } from "@/components/ui/badge";
+import AnimatedHamburgerButton from "../Hamburger";
+import SidebarSheet from "./SidebarSheet";
 
 // import { Input } from "../ui/input";
 // import GlobalApi from "@/app/_services/GlobalApi";
@@ -128,6 +130,7 @@ const Header = () => {
 
   return (
     <header className=" flex h-16 items-center gap-4  bg-background px-4 ">
+      <SidebarSheet />
       {navLinks.find((navLink) => navLink.href === pathname) && (
         <Breadcrumb className="hidden md:flex">
           <BreadcrumbList>

@@ -83,7 +83,7 @@ const MathSchoolTable = ({ school_id, exams_id }: SchoolProps) => {
   }, [exams_id]);
   return (
     <div className="w-full">
-      <div className="flex flex-col w-full gap-3">
+      <div className="flex flex-col w-full ">
         <div className="grid grid-cols-5 gap-2 text-sm w-full border-b pb-2">
           <h1 className="font-medium text-muted-foreground/80 col-span-2">
             Student
@@ -94,17 +94,26 @@ const MathSchoolTable = ({ school_id, exams_id }: SchoolProps) => {
           <h1 className="font-medium hidden sm:flex text-muted-foreground/80">
             Section B
           </h1>
+          <h1 className="font-medium hidden sm:flex text-muted-foreground/80">
+            Score
+          </h1>
         </div>
         {StudentsList && StudentsList?.length > 0 ? (
           StudentsList?.map((student, index) => (
-            <div>
-              <div key={index} className="grid sm:grid-cols-5 gap-2 w-full">
-                <h1 className="col-span-2 font-medium text-sm">
+            <div className="">
+              <div key={index} className="grid sm:grid-cols-5  w-full">
+                <h1 className="col-span-2 font-medium text-sm border p-2">
                   {student.name}
                 </h1>
-                <div className=" font-medium text-sm">{student.math_A}</div>
-                <div className=" font-medium text-sm">{student.math_B}</div>
-                <div className=" font-medium text-sm">{student.math_tot}</div>
+                <div className=" font-medium text-sm border p-2">
+                  {student.math_A}
+                </div>
+                <div className=" font-medium text-sm border p-2">
+                  {student.math_B}
+                </div>
+                <div className=" bg-muted text-sm border p-2 max-sm:col-span-2 font-semibold">
+                  {student.math_tot}
+                </div>
               </div>
             </div>
           ))

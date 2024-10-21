@@ -1,14 +1,6 @@
 import React, { useState } from "react";
 import { MotionConfig, motion } from "framer-motion";
 
-export const Hamburger = () => {
-  return (
-    <div className="grid h-screen place-content-center bg-gradient-to-br from-violet-500 to-indigo-500">
-      <AnimatedHamburgerButton />
-    </div>
-  );
-};
-
 const AnimatedHamburgerButton = () => {
   const [active, setActive] = useState(false);
   return (
@@ -18,11 +10,11 @@ const AnimatedHamburgerButton = () => {
         ease: "easeInOut",
       }}
     >
-      <motion.button
+      <motion.div
         initial={false}
         animate={active ? "open" : "closed"}
         onClick={() => setActive((pv) => !pv)}
-        className="relative h-20 w-20 rounded-full bg-white/0 transition-colors hover:bg-white/20"
+        className="relative  scale-50 h-20 w-20 rounded-lg bg-white/0 transition-colors hover:bg-white/20"
       >
         <motion.span
           variants={VARIANTS.top}
@@ -44,10 +36,12 @@ const AnimatedHamburgerButton = () => {
             left: "calc(50% + 10px)",
           }}
         />
-      </motion.button>
+      </motion.div>
     </MotionConfig>
   );
 };
+
+export default AnimatedHamburgerButton;
 
 const VARIANTS = {
   top: {

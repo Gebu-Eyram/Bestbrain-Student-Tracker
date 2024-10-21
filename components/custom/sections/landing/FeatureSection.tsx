@@ -39,7 +39,7 @@ const FeatureSection = () => {
         <Image
           src={"/gradient.png"}
           alt="gradient"
-          className="opacity-25 absolute -top-60"
+          className="opacity-25 absolute pointer-events-none -top-60"
           // width={300}
           // height={400}
           fill

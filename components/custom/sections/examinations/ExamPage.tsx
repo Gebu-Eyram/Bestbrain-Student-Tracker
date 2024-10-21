@@ -50,6 +50,15 @@ import CareerTable from "@/components/InputTables/CareerTable";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { Button } from "@/components/ui/button";
 import MathSchoolTable from "./MathSchoolTable";
+import ScienceSchoolTable from "./ScienceSchoolTable";
+import EnglishSchoolTable from "./EnglishSchoolTable";
+import SocialSchoolTable from "./SocialTable";
+import CArtsSchoolTable from "./CArtsSchoolTable";
+import CareerSchoolTable from "./CareerSchoolTable";
+import CompSchoolTable from "./CompSchoolTable";
+import RMESchoolTable from "./RMESchoolTable";
+import FrenchSchoolTable from "./FrenchSchoolTable";
+import GHLangSchoolTable from "./GHLangSchoolTable";
 
 interface SchoolProps {
   school_id: string;
@@ -140,7 +149,7 @@ const ExaminationsDashboard = () => {
           defaultValue="maths"
           className="mx-auto  w-full  items-start gap-6"
         >
-          <TabsList className="flex h-fit gap-6">
+          <TabsList className="flex h-fit flex-wrap gap-2 sm:gap-6 justify-start">
             <TabsTrigger value="maths">Mathematics</TabsTrigger>
             <TabsTrigger value="science">Int. Science</TabsTrigger>
             <TabsTrigger value="english">English</TabsTrigger>
@@ -161,6 +170,132 @@ const ExaminationsDashboard = () => {
 
                 <CardContent>
                   <MathSchoolTable
+                    exams_id={selectedExamId}
+                    school_id={school_id}
+                  />
+                </CardContent>
+              </Card>
+            </TabsContent>
+            <TabsContent value="science">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-xl">Mathematics</CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <ScienceSchoolTable
+                    exams_id={selectedExamId}
+                    school_id={school_id}
+                  />
+                </CardContent>
+              </Card>
+            </TabsContent>
+            <TabsContent value="english">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-xl">English</CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <EnglishSchoolTable
+                    exams_id={selectedExamId}
+                    school_id={school_id}
+                  />
+                </CardContent>
+              </Card>
+            </TabsContent>
+            <TabsContent value="social">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-xl">Social Studies</CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <SocialSchoolTable
+                    exams_id={selectedExamId}
+                    school_id={school_id}
+                  />
+                </CardContent>
+              </Card>
+            </TabsContent>
+            <TabsContent value="c_arts">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-xl">Creative Arts</CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <CArtsSchoolTable
+                    exams_id={selectedExamId}
+                    school_id={school_id}
+                  />
+                </CardContent>
+              </Card>
+            </TabsContent>
+            <TabsContent value="career">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-xl">Career Tech.</CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <CareerSchoolTable
+                    exams_id={selectedExamId}
+                    school_id={school_id}
+                  />
+                </CardContent>
+              </Card>
+            </TabsContent>
+            <TabsContent value="rme">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-xl">R.M.E.</CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <RMESchoolTable
+                    exams_id={selectedExamId}
+                    school_id={school_id}
+                  />
+                </CardContent>
+              </Card>
+            </TabsContent>
+            <TabsContent value="french">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-xl">French</CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <FrenchSchoolTable
+                    exams_id={selectedExamId}
+                    school_id={school_id}
+                  />
+                </CardContent>
+              </Card>
+            </TabsContent>
+            <TabsContent value="comp">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-xl">Computing</CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <CompSchoolTable
+                    exams_id={selectedExamId}
+                    school_id={school_id}
+                  />
+                </CardContent>
+              </Card>
+            </TabsContent>
+            <TabsContent value="gh_lang">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-xl">Ghanaian Lang.</CardTitle>
+                </CardHeader>
+
+                <CardContent>
+                  <GHLangSchoolTable
                     exams_id={selectedExamId}
                     school_id={school_id}
                   />
