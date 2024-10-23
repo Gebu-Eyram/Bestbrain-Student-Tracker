@@ -22,7 +22,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-const page = ({ params }: PageProps) => {
+const AdminExamsPage = ({ params }: PageProps) => {
   const [SelectedExam, setSelectedExam] = useState<EXAMINATIONS[]>();
   const GetExaminations = async (id: number) => {
     try {
@@ -78,7 +78,7 @@ const page = ({ params }: PageProps) => {
   );
 };
 
-export default page;
+export default AdminExamsPage;
 
 import Image from "next/image";
 import { MoreHorizontal } from "lucide-react";
