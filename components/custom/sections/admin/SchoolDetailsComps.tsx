@@ -50,7 +50,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { DeleteSchool } from "@/app/_services/methods";
+import { DeleteSchool, PostNewStudent } from "@/app/_services/methods";
 interface AlertProps {
   school_id: string;
 }
@@ -272,7 +272,6 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import Image from "next/image";
-import { PostNewStudent } from "@/app/(page routes)/admin/schools/add/page";
 
 interface Props {
   school_id: string;
