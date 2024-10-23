@@ -20,7 +20,6 @@ export default function Home() {
       <CardStackDemo />
       <SparkleCurve />
       <PricingSection />
-      <FAQ />
       <Footer />
     </main>
   );
