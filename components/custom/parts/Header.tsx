@@ -29,12 +29,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { db } from "@/utils/db";
 import { Users } from "@/utils/schema";
-import { PostNewUser } from "@/app/(page routes)/admin/schools/add/page";
+
 import { ModeToggle } from "../sections/SchoolComps";
 import { SearchCommand } from "@/components/shadcn/SearchCommand";
 import { Badge } from "@/components/ui/badge";
 import AnimatedHamburgerButton from "../Hamburger";
 import SidebarSheet from "./SidebarSheet";
+import { PostNewUser } from "@/app/_services/methods";
 
 // import { Input } from "../ui/input";
 // import GlobalApi from "@/app/_services/GlobalApi";

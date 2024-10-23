@@ -18,11 +18,12 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/hooks/use-toast";
-import { PostNewSchool } from "@/app/(page routes)/admin/schools/add/page";
+
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { db } from "@/utils/db";
 import { Schools, Users } from "@/utils/schema";
 import { SCHOOLS } from "./SchoolComps";
+import { PostNewSchool } from "@/app/_services/methods";
 
 interface USERINT {
   id: string;
