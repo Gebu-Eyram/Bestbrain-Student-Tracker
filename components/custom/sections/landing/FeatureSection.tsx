@@ -61,18 +61,36 @@ const FeatureSection = () => {
           </div>
         </div>
       </div>
-
-      <div className="relative ">
-        <div className="grid grid-cols-1 font-[family-name:var(--font-sora)] lg:grid-cols-6 mt-12 xl:border rounded-md dark:border-neutral-800">
-          {features.map((feature) => (
-            <FeatureCard key={feature.title} className={feature.className}>
-              <FeatureTitle>{feature.title}</FeatureTitle>
-              <FeatureDescription>{feature.description}</FeatureDescription>
-              <div className=" h-full w-full">{feature.skeleton}</div>
-            </FeatureCard>
-          ))}
+      <InView
+        variants={{
+          hidden: {
+            opacity: 0,
+            y: 30,
+            scale: 0.95,
+            filter: "blur(4px)",
+          },
+          visible: {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            filter: "blur(0px)",
+          },
+        }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        viewOptions={{ margin: "0px 0px -350px 0px" }}
+      >
+        <div className="relative ">
+          <div className="grid grid-cols-1 font-[family-name:var(--font-sora)] lg:grid-cols-6 mt-12 xl:border rounded-md dark:border-neutral-800">
+            {features.map((feature) => (
+              <FeatureCard key={feature.title} className={feature.className}>
+                <FeatureTitle>{feature.title}</FeatureTitle>
+                <FeatureDescription>{feature.description}</FeatureDescription>
+                <div className=" h-full w-full">{feature.skeleton}</div>
+              </FeatureCard>
+            ))}
+          </div>
         </div>
-      </div>
+      </InView>
     </div>
   );
 };
