@@ -2,7 +2,6 @@ import { PostNewSchoolDetails } from "@/app/_services/methods";
 import NewSection from "@/components/custom/sections/admin/NewSection";
 import { RevealBento } from "@/components/new-sections/BentoGrid";
 
-import { InViewImagesGrid } from "@/components/primitives/StaggeredColumns";
 import { SchoolContactdetails } from "@/constants/schoolsContacts";
 import { School } from "lucide-react";
 import React from "react";
