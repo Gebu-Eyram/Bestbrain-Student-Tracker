@@ -56,7 +56,7 @@ export const AuroraHero = () => {
           The best way to manage your school's data and improve your student's
           performance in one app.
         </p>
-        <Link href={user ? "/dashboard" : "/api/auth/login"}>
+        <Link href={user ? "/dashboard" : "/auth/sign-in"}>
           <motion.button
             style={{
               border,

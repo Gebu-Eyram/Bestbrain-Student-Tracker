@@ -81,9 +81,9 @@ const ExaminationsDashboard = () => {
       const result = await db
         .select()
         .from(Examinations)
-        .orderBy(Examinations.name);
+        .orderBy(Examinations.createdAt);
 
-      setExamsList(result);
+      setExamsList(result.reverse());
     } catch (error: any) {
       console.error(error.message);
     }
@@ -179,7 +179,7 @@ const ExaminationsDashboard = () => {
             <TabsContent value="science">
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-xl">Mathematics</CardTitle>
+                  <CardTitle className="text-xl">Int. Science</CardTitle>
                 </CardHeader>
 
                 <CardContent>

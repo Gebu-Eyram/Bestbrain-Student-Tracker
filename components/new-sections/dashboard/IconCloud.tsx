@@ -14,11 +14,9 @@ const slugs = [
   "express",
   "nextdotjs",
   "drizzle",
-
   "postgresql",
-
   "git",
-
+  "tailwindcss",
   "github",
   "gitlab",
   "shadcn",
@@ -33,6 +31,7 @@ const slugs = [
   "safari",
   "opera",
   "edge",
+  "vercel",
   "figma",
 ];
 

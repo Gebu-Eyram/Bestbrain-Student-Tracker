@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const APP_NAME = "Bestbrain Student Tracker";
-const APP_DEFAULT_TITLE = "Bestbrain Student Tracker";
+const APP_DEFAULT_TITLE = "Bestbrain";
 const APP_TITLE_TEMPLATE = "Bestbrain";
-const APP_DESCRIPTION = "Track your students with ease!";
+const APP_DESCRIPTION =
+  "Bestbrain student tracker enables you track your students with ease!";
 
 export const metadata: Metadata = {
   applicationName: APP_NAME,
@@ -61,7 +63,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={` ${inter.variable} ${sora.variable}`}>
-        {children}
+        <main>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </main>
         <Toaster />
       </body>
     </html>

@@ -24,7 +24,7 @@ const PricingSection = () => {
         transition={{ duration: 0.3, ease: "easeInOut" }}
         viewOptions={{ margin: "0px 0px -350px 0px" }}
       >
-        <div className="px-2 w-full py-8 mx-auto md:px-12 lg:pb-20 max-w-screen-xl dark relative">
+        <div className="px-2 w-full pb-8 mx-auto md:px-12 lg:pb-20 max-w-screen-xl dark relative">
           <div className="max-w-xl text-center mx-auto">
             <span className="font-mono text-xs text-muted-foreground font-medium tracking-tight text-accent-600 uppercase">
               PRICING

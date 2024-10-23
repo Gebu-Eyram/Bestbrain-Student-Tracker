@@ -1,6 +1,7 @@
 import SchoolDetailsComps, {
   StudentTableAdmin,
 } from "@/components/custom/sections/admin/SchoolDetailsComps";
+import { RegisterLink } from "@kinde-oss/kinde-auth-nextjs";
 import React from "react";
 
 interface PageProps {

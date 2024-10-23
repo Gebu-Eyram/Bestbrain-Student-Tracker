@@ -16,31 +16,24 @@ const layout = ({
   const [UpdateMode, setUpdateMode] = useState<any>("light");
   return (
     <main className="bg-background">
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="light"
-        enableSystem
-        disableTransitionOnChange
+      <UpdateContentContext.Provider
+        value={{ UpdateContent, setUpdateContent }}
       >
-        <UpdateContentContext.Provider
-          value={{ UpdateContent, setUpdateContent }}
-        >
-          <UpdateModeContext.Provider value={{ UpdateMode, setUpdateMode }}>
-            <div className="flex justify-start items-start">
-              <RetractibleSidebar />
-              <div
-                className="flex min-h-screen w-full flex-col
+        <UpdateModeContext.Provider value={{ UpdateMode, setUpdateMode }}>
+          <div className="flex justify-start items-start">
+            <RetractibleSidebar />
+            <div
+              className="flex min-h-screen w-full flex-col
       "
-              >
-                <div className="flex flex-col">
-                  <Header />
-                  <main className="p-2 sm:p-4">{children}</main>
-                </div>
+            >
+              <div className="flex flex-col">
+                <Header />
+                <main className="p-2 sm:p-4">{children}</main>
               </div>
             </div>
-          </UpdateModeContext.Provider>
-        </UpdateContentContext.Provider>
-      </ThemeProvider>
+          </div>
+        </UpdateModeContext.Provider>
+      </UpdateContentContext.Provider>
     </main>
   );
 };
