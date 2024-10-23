@@ -50,7 +50,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { DeleteSchool, PostNewStudent } from "@/app/_services/methods";
+import { DeleteSchool } from "@/app/_services/methods";
 interface AlertProps {
   school_id: string;
 }
@@ -294,6 +294,20 @@ export function AddStudentDialogDemo({ school_id, schoolName }: Props) {
     } catch (error: any) {
       console.error(error.message);
     }
+  };
+  const PostNewStudent = async (
+    name: string,
+    school_id: string,
+    school: string,
+    id: string
+  ) => {
+    const result = await db.insert(Students).values({
+      name: name,
+      school_id: school_id,
+      id: id,
+      school: school,
+    });
+    return result;
   };
 
   const GetSchool = async (school_id: string) => {
