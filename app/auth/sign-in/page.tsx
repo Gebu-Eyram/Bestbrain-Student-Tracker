@@ -30,7 +30,7 @@ const SignInPage = () => {
         <div className="relative xl:container m-auto px-2 sm:px-4  text-gray-500 md:px-12">
           <div className="m-auto space-y-8 sm:w-4/5 md:w-3/5 xl:w-2/5">
             <div className="py-8 px-2 md:p-8 md:py-12">
-              <div className="flex gap-3 items-center">
+              <Link href={"/"} className="flex gap-3 items-center">
                 <img
                   src="/bb-logo.svg"
                   loading="lazy"
@@ -40,7 +40,7 @@ const SignInPage = () => {
                 <p className="text-3xl font-bold text-gray-800 dark:text-white">
                   Bestbrain
                 </p>
-              </div>
+              </Link>
               <h2 className="mt-20 mb-8 text-3xl font-bold text-gray-800 dark:text-white">
                 Welcome back to Bestbrain.
               </h2>

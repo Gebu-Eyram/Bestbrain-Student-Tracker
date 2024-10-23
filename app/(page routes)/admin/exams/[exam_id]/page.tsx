@@ -80,13 +80,6 @@ const AdminExamsPage = ({ params }: PageProps) => {
 
 export default AdminExamsPage;
 
-import Image from "next/image";
-import { MoreHorizontal } from "lucide-react";
-
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-
-import { SCHOOLS } from "@/components/custom/sections/SchoolComps";
 import { DataTable } from "@/app/dataTable/data-table";
 import { ExamsScoreTable } from "@/app/dataTable/columData/ExamsColumns";
 
@@ -94,7 +87,7 @@ interface ComponentProps {
   exam_id: string;
 }
 
-export function Component({ exam_id }: ComponentProps) {
+const Component = ({ exam_id }: ComponentProps) => {
   const [scores, setScores] = useState<EXAMSCORES[]>();
 
   const GetScores = async () => {
@@ -134,4 +127,4 @@ export function Component({ exam_id }: ComponentProps) {
       )}
     </div>
   );
-}
+};
