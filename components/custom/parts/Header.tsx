@@ -192,10 +192,12 @@ const Header = () => {
               </div>
             </DropdownMenuItem>
           )}
+
           <DropdownMenuSeparator />
+          {/* <DropdownMenuItem>Profile</DropdownMenuItem> 
           <DropdownMenuItem>Settings</DropdownMenuItem>
           <DropdownMenuItem>Support</DropdownMenuItem>
-          <DropdownMenuSeparator />
+          <DropdownMenuSeparator />*/}
           <Link href="/api/auth/logout" className="">
             <DropdownMenuItem className="cursor-pointer">
               Logout

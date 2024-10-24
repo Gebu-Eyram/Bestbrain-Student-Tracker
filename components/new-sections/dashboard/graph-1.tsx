@@ -167,6 +167,12 @@ export default function DashboardGraph1() {
 
   useEffect(() => {
     GetExaminations();
+  }, [user]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      GetExaminations();
+    }, 100);
   }, []);
 
   useEffect(() => {

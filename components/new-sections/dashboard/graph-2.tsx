@@ -159,6 +159,12 @@ export function DashboardGraph2() {
 
   useEffect(() => {
     GetExaminations();
+  }, [user]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      GetExaminations();
+    }, 4000);
   }, []);
 
   useEffect(() => {
@@ -170,7 +176,7 @@ export function DashboardGraph2() {
   }, [school_id]);
 
   return (
-    <Card className="flex flex-col w-full border col-span-12 row-span-2  md:col-span-6 xl:col-span-4">
+    <Card className="flex flex-col w-full h-full border-none">
       <CardHeader className="items-center  relative pb-0">
         <AiExplain chartData={chartData} otherPrompt={prompt} />
         <CardTitle>Core Subject Performance</CardTitle>

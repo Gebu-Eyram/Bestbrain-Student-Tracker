@@ -35,9 +35,6 @@ export default function DashboardStudentTable() {
     GetStudents(school_id);
   }, [school_id]);
 
-  useEffect(() => {
-    GetStudents(school_id);
-  }, [school_id]);
   const [StudentsList, setStudentsList] = useState<STUDENTS[]>([]);
 
   const GetStudents = async (id: string) => {

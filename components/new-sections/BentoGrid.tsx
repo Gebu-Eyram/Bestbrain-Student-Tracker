@@ -78,7 +78,7 @@ const Block = ({ className, ...rest }: BlockProps) => {
   );
 };
 
-const HeaderBlock = () => {
+export const HeaderBlock = () => {
   const { user } = useKindeBrowserClient();
   return (
     <Block className="col-span-12 row-span-2 md:col-span-6 xl:col-span-4 ">
@@ -105,15 +105,17 @@ const HeaderBlock = () => {
   );
 };
 
-const SocialsBlock = () => (
+export const SocialsBlock = () => (
   <>
     <SchoolDetailsBlock />
-    <DashboardGraph2 />
+    <Block className="col-span-12 row-span-2 md:col-span-6 xl:col-span-4">
+      <DashboardGraph2 />
+    </Block>
     <StudentLinkBlock />
   </>
 );
 
-const SchoolDetailsBlock = () => {
+export const SchoolDetailsBlock = () => {
   const { user } = useKindeBrowserClient();
   const [schoolData, setSchoolData] = useState<any>([]);
   const GetSchoolData = async (school_id: string) => {
@@ -174,7 +176,7 @@ const AboutBlock = () => (
   </Block>
 );
 
-const Graph1 = () => (
+export const Graph1 = () => (
   <Block className="col-span-12 row-span-1 h-fit p-0 border-none md:col-span-6 xl:col-span-4">
     <DashboardGraph1 />
   </Block>
@@ -185,7 +187,7 @@ const Graph3 = () => (
     <DashboardGraph3 />
   </Block>
 );
-const StudentTableBlock = () => {
+export const StudentTableBlock = () => {
   const [school_id, setSchool_id] = useState("");
   const { user } = useKindeBrowserClient();
   useEffect(() => {
@@ -198,7 +200,7 @@ const StudentTableBlock = () => {
   );
 };
 
-const StudentLinkBlock = () => {
+export const StudentLinkBlock = () => {
   return (
     <Block className="col-span-12 flex items-center justify-center md:col-span-6 xl:col-span-4">
       <DashboardStudentLink />
