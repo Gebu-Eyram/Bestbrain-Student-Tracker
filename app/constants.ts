@@ -7,7 +7,7 @@ import {
   Settings2,
 } from "lucide-react";
 import { MdDashboard } from "react-icons/md";
-import { PiExamFill } from "react-icons/pi";
+import { PiExamFill, PiStudent } from "react-icons/pi";
 
 export const navLinks = [
   {
@@ -18,7 +18,7 @@ export const navLinks = [
   {
     href: "/dashboard/students",
     label: "Students",
-    icon: GraduationCap,
+    icon: PiStudent,
   },
   {
     href: "/dashboard/examinations",

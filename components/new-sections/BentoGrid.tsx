@@ -39,7 +39,7 @@ export const RevealBento = () => {
         <Graph1 />
 
         <StudentTableBlock />
-        <Graph3 />
+        {/* <Graph3 /> */}
       </motion.div>
     </div>
   );
