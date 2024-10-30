@@ -2,7 +2,6 @@
 import { PostNewSchoolDetails } from "@/app/_services/methods";
 import NewSection from "@/components/custom/sections/admin/NewSection";
 import {
-  Graph1,
   HeaderBlock,
   RevealBento,
   SocialsBlock,
@@ -14,6 +13,7 @@ import { School } from "lucide-react";
 import React from "react";
 import { motion, MotionProps } from "framer-motion";
 import DashboardGraph1 from "@/components/new-sections/dashboard/graph-1";
+import DashboardGraph3 from "@/components/new-sections/dashboard/graph-3";
 
 const page = () => {
   return (
@@ -28,14 +28,9 @@ const page = () => {
       >
         <HeaderBlock />
         <SocialsBlock />
-
-        {/* <SchoolDetailsBlock />
-        <StudentLinkBlock /> */}
-        {/* <AboutBlock /> */}
-        <Graph1 />
-
+        <DashboardGraph1 />
         <StudentTableBlock />
-        {/* <Graph3 /> */}
+        <DashboardGraph3 />
       </motion.div>
     </div>
   );

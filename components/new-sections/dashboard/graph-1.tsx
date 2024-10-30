@@ -25,6 +25,7 @@ import { STUDENTS } from "@/components/custom/sections/admin/pageComp/StudentCom
 import { EXAMINATIONS } from "@/app/_services/types";
 import { db } from "@/utils/db";
 import { Examinations, ScoreTable } from "@/utils/schema";
+import { Block } from "../BentoGrid";
 
 export default function DashboardGraph1() {
   const { user } = useKindeBrowserClient();
@@ -33,110 +34,132 @@ export default function DashboardGraph1() {
 
   const [ExamsList, setExamsList] = useState<EXAMINATIONS[]>([]);
   const [recentExam, setRecentExam] = useState<EXAMINATIONS>();
+  const [coreAvg, setCoreAvg] = useState<number>(0);
+  const [electiveAvg, setElectiveAvg] = useState<number>(0);
   const [school_id, setSchool_id] = useState<string>();
   const [examScores, setExamScores] = useState<any[]>([]);
   const [examAverage, setExamAverage] = useState<number>(0);
+  const [chartData, setChartData] = useState<any[]>([]);
   const [prompt, setPrompt] = useState<string>(
-    "This data shows the average scores of a student in the subjects of the recent examination for a school. Please explain to the school owner the trends in the student's performance, and highlight any problems and remedies to scores. Please make reference to the score grading and site the student's performance in the context of the school's average performance.Every number and average is an average of scores scored by a student in an exam. The grade interpretation is 100-80 interpreted as HIGHEST 79-70 interpreted as HIGHER 69-60 interpreted as HIGH 59-50 interpreted as HIGH AVERAGE 49-40 interpreted as AVERAGE 39-30 interpreted as LOW AVERAGE 29-25 interpreted as LOW 24-20 interpreted as LOWER 19-0 interpreted as LOWEST. Any score less than 50 is below average. Please try to find possible reasons for the trends and match the aveage scores accordingly to the grades. Analyse the data deeply too."
+    `Give headings, sections or whatever you deem applicable. Words be elaborate and should range from 300 to 400 words. You are a school grading expert in Ghana. You follow rules. This data presents the average scores of students in recent examinations across various subjects. Please analyze the trends in student performance and explain these to the school owner. Highlight any issues but do not suggest remedies for low scores, only reference the school's average performance. 
+Each score represents the average for all students in the school for this exam. The grading scale is as follows. Do not infer grades from average scores. PLEASE STICK TO THIS SCALE AND ONLY THIS SCALE. Please do not categorize grades relative to one anothr or use any scale apart from this: any deviations will render the information irrelevant.If you are unsure, please consult the school owner or the school's grading policy.:
+    80 to 100 only: HIGHEST 
+    70 to 79 only: HIGHER
+    60 to 69 only: HIGH
+    50 to 59 only: HIGH AVERAGE
+    40 to 49 only: AVERAGE
+    30 to 39 only: LOW AVERAGE
+    25 to 29 only: LOW  
+    20 to 24 only: LOWER
+    0 to 19 only: LOWEST
+    Important: Always correlate average scores with the corresponding grades DO NOT infer.
+    Note:  Any average score below 50 is considered below average and should not be considered as "HIGH".
+    Please identify possible reasons for the observed trends and correlate average scores with the corresponding grades. Conduct a thorough analysis of the data. Make sure to use tables to support your analysis. Be mindful of decimals as well. 
+    Eg 1:42.125 is in the range 40 to 49 and should be considered AVERAGE according to the grading scale.
+    Eg2: 54.23 is in the range 50 to 59 and should be considered HIGH AVERAGE according to the grading scale.
+    Eg3: 19.99 is in the range 0 to 19 and should be considered LOWEST according to the grading scale.
+    Eg4: 79.99 is in the range 70 to 79 and should be considered HIGHER according to the grading scale.
+    Eg5: 93 is in the range 80 to 100 and should be considered HIGHEST according to the grading scale.
+    Eg6: 29.99 is in the range 25 to 29 and should be considered LOW according to the grading scale.`
   );
   useEffect(() => {
     user && setSchool_id(user.id);
   }, [user]);
 
-  const GetExaminations = async () => {
+  useEffect(() => {
+    if (user) {
+      const school_id = user.id;
+      GetExaminations(school_id);
+    }
+  }, [user]);
+
+  const GetExaminations = async (school_id: any) => {
     try {
       const result = await db
         .select()
         .from(Examinations)
         .orderBy(Examinations.createdAt);
-      console.log(result);
-      setExamsList(result.reverse());
-    } catch (error: any) {
-      console.error(error.message);
+      setExamsList(result.reverse().slice(0, 3)); // Get last three exams
+      if (result.length > 0) {
+        result
+          .reverse()
+          .slice(0, 3)
+          .forEach((exam) => {
+            GetScores(school_id, exam.id.toLocaleString());
+          });
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
-  const GetScores = async (school_id: string, exams_id: number) => {
+  const GetScores = async (school_id: any, exam_id: any) => {
     try {
-      const result: any = await db
+      const result = await db
         .select()
         .from(ScoreTable)
         .where(eq(ScoreTable.school_id, school_id));
 
       const length = result.length;
-
-      // Summing scores for each subject
       const totalScores = sumScores(result);
-      const overallTotal =
-        totalScores.math_tot +
-        totalScores.english_tot +
-        totalScores.science_tot +
-        totalScores.social_tot +
-        totalScores.rme_tot +
-        totalScores.french_tot +
-        totalScores.comp_tot +
-        totalScores.career_tot +
-        totalScores.c_arts_tot +
-        totalScores.gh_lang_tot;
 
-      const Average = overallTotal / (length * 10);
-
-      setExamAverage(Average);
-
-      setExamScores([
-        {
-          subject: "Maths",
-          total: totalScores.math_tot / length,
-        },
-        {
-          subject: "English",
-          total: totalScores.english_tot / length,
-        },
-        {
-          subject: "Science",
-          total: totalScores.science_tot / length,
-        },
-        {
-          subject: "Social Studies",
-          total: totalScores.social_tot / length,
-        },
-        {
-          subject: "RME",
-          total: totalScores.rme_tot / length,
-        },
-        {
-          subject: "French",
-          total: totalScores.french_tot / length,
-        },
-        {
-          subject: "ICT",
-          total: totalScores.comp_tot / length,
-        },
-        {
-          subject: "Career",
-          total: totalScores.career_tot / length,
-        },
-        {
-          subject: "Creative Arts",
-          total: totalScores.c_arts_tot / length,
-        },
+      // Prepare the average scores for each subject
+      const averageScores = [
+        { subject: "Maths", total: totalScores.math_tot / length },
+        { subject: "English", total: totalScores.english_tot / length },
+        { subject: "Science", total: totalScores.science_tot / length },
+        { subject: "Social Studies", total: totalScores.social_tot / length },
+        { subject: "RME", total: totalScores.rme_tot / length },
+        { subject: "French", total: totalScores.french_tot / length },
+        { subject: "ICT", total: totalScores.comp_tot / length },
+        { subject: "Career", total: totalScores.career_tot / length },
+        { subject: "Creative Arts", total: totalScores.c_arts_tot / length },
         {
           subject: "Ghanaian Language",
           total: totalScores.gh_lang_tot / length,
         },
-      ]);
+      ];
+      setCoreAvg(
+        (totalScores.math_tot / length +
+          totalScores.english_tot / length +
+          totalScores.science_tot / length +
+          totalScores.social_tot / length) /
+          4
+      );
+      setElectiveAvg(
+        (totalScores.rme_tot / length +
+          totalScores.french_tot / length +
+          totalScores.comp_tot / length +
+          totalScores.career_tot / length +
+          totalScores.c_arts_tot / length +
+          totalScores.gh_lang_tot / length) /
+          6
+      );
 
-      return result;
-    } catch (error: any) {
-      console.error(error.message);
+      setExamScores(averageScores);
+
+      // Calculate overall average
+      const overallAverage =
+        (totalScores.math_tot / length +
+          totalScores.english_tot / length +
+          totalScores.career_tot / length +
+          totalScores.c_arts_tot / length +
+          totalScores.comp_tot / length +
+          totalScores.french_tot / length +
+          totalScores.gh_lang_tot / length +
+          totalScores.rme_tot / length +
+          totalScores.science_tot / length +
+          totalScores.social_tot / length) /
+        10;
+      setExamAverage(overallAverage);
+    } catch (error) {
+      console.error(error);
     }
   };
 
-  const sumScores = (scores: any[]) => {
-    // Initialize an object to hold the total scores for each subject
+  const sumScores = (scores: any) => {
     const totals = {
       c_arts_tot: 0,
-
       career_tot: 0,
       comp_tot: 0,
       english_tot: 0,
@@ -148,8 +171,7 @@ export default function DashboardGraph1() {
       social_tot: 0,
     };
 
-    // Iterate through each score object and sum the scores
-    scores.forEach((score) => {
+    scores.forEach((score: any) => {
       totals.c_arts_tot += score.c_arts_tot || 0;
       totals.career_tot += score.career_tot || 0;
       totals.comp_tot += score.comp_tot || 0;
@@ -165,63 +187,76 @@ export default function DashboardGraph1() {
     return totals;
   };
 
-  useEffect(() => {
-    GetExaminations();
-  }, [user]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      GetExaminations();
-    }, 100);
-  }, []);
-
-  useEffect(() => {
-    ExamsList.length > 0 && setRecentExam(ExamsList[0]);
-  }, [ExamsList]);
-
-  useEffect(() => {
-    school_id && user && recentExam?.id && GetScores(school_id, recentExam.id);
-  }, [school_id]);
-
   return (
-    <Card className="w-full">
-      <CardHeader className="p-4 text-center">
-        <AiExplain chartData={examScores} otherPrompt={prompt} />
-        <CardTitle>Average Student Performance</CardTitle>
-        <CardDescription>{recentExam?.name}</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={examScores}>
-            <CartesianGrid vertical={false} />
+    <Block className="col-span-12 row-span-1 h-fit p-0 border-none md:col-span-6 xl:col-span-4">
+      <Card className="w-full">
+        <CardHeader className="p-4 text-center">
+          <AiExplain chartData={examScores} otherPrompt={prompt} />
+          <CardTitle>Average School Performance</CardTitle>
+          <CardDescription>
+            Scores from the most recent examination.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ChartContainer config={chartConfig}>
+            <BarChart accessibilityLayer data={examScores}>
+              <CartesianGrid vertical={false} />
 
-            <XAxis
-              dataKey="subject"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="dashed" />}
-            />
-            <Bar dataKey="total" fill="var(--color-total)" radius={4} />
-          </BarChart>
-        </ChartContainer>
-        <CardFooter className="flex flex-col p-2 border-t justify-center">
-          Exam average: {examAverage.toFixed(2)}
-        </CardFooter>
-      </CardContent>
-    </Card>
+              <XAxis
+                dataKey="subject"
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                tickFormatter={(value) => value.slice(0, 3)}
+              />
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent indicator="dashed" />}
+              />
+              <Bar dataKey="total" fill="var(--color-total)" radius={4} />
+            </BarChart>
+          </ChartContainer>
+          <CardFooter className="flex flex-row border-t p-4">
+            <div className="flex w-full items-center gap-2">
+              <div className="grid flex-1 auto-rows-min gap-0.5">
+                <div className="text-xs text-muted-foreground">Average</div>
+                <div className="flex items-baseline gap-1 text-2xl font-bold tabular-nums leading-none">
+                  {examAverage.toFixed(2)}
+                  <span className="text-sm font-normal text-muted-foreground">
+                    /100
+                  </span>
+                </div>
+              </div>
+              <Separator orientation="vertical" className="mx-2 h-10 w-px" />
+              <div className="grid flex-1 auto-rows-min gap-0.5">
+                <div className="text-xs text-muted-foreground">Cores</div>
+                <div className="flex items-baseline gap-1 text-2xl font-bold tabular-nums leading-none">
+                  {coreAvg.toFixed(2)}
+                  <span className="text-sm font-normal text-muted-foreground">
+                    %
+                  </span>
+                </div>
+              </div>
+              <Separator orientation="vertical" className="mx-2 h-10 w-px" />
+              <div className="grid flex-1 auto-rows-min gap-0.5">
+                <div className="text-xs text-muted-foreground">Electives</div>
+                <div className="flex items-baseline gap-1 text-2xl font-bold tabular-nums leading-none">
+                  {electiveAvg.toFixed(2)}
+                  <span className="text-sm font-normal text-muted-foreground">
+                    %
+                  </span>
+                </div>
+              </div>
+            </div>
+          </CardFooter>
+        </CardContent>
+      </Card>
+    </Block>
   );
 }
 
-import { Label } from "recharts";
-
 import { and, eq } from "drizzle-orm";
 import AiExplain from "@/components/custom/AiExplain";
-import StudentAIExplain from "@/components/custom/StudentDetails.tsx/StudentAIExplain";
 
 const chartConfig = {
   total: {

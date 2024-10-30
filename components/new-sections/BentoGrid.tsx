@@ -36,7 +36,6 @@ export const RevealBento = () => {
         {/* <SchoolDetailsBlock />
         <StudentLinkBlock /> */}
         {/* <AboutBlock /> */}
-        <Graph1 />
 
         <StudentTableBlock />
         {/* <Graph3 /> */}
@@ -48,7 +47,7 @@ type BlockProps = {
   className?: string;
 } & MotionProps;
 
-const Block = ({ className, ...rest }: BlockProps) => {
+export const Block = ({ className, ...rest }: BlockProps) => {
   return (
     <motion.div
       variants={{
@@ -176,17 +175,6 @@ const AboutBlock = () => (
   </Block>
 );
 
-export const Graph1 = () => (
-  <Block className="col-span-12 row-span-1 h-fit p-0 border-none md:col-span-6 xl:col-span-4">
-    <DashboardGraph1 />
-  </Block>
-);
-
-const Graph3 = () => (
-  <Block className="col-span-12 row-span-1 h-fit p-0 border-none md:col-span-6 xl:col-span-4">
-    <DashboardGraph3 />
-  </Block>
-);
 export const StudentTableBlock = () => {
   const [school_id, setSchool_id] = useState("");
   const { user } = useKindeBrowserClient();

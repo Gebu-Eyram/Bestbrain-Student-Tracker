@@ -83,18 +83,22 @@ export const DeleteSchool = async (id: string) => {
   }
 };
 
-export const DeleteUser = async (id: string) => {
+export const DeleteStudent = async (id: string) => {
   try {
-    const result = await db.delete(Users).where(eq(Users.id, id));
+    const result = await db.delete(Students).where(eq(Students.id, id));
+
     return result;
   } catch (error) {
     console.log(error);
   }
 };
-
-export const DeleteStudent = async (id: string) => {
+export const DeleteUser = async (id: string) => {
   try {
-    const result = await db.delete(Students).where(eq(Students.id, id));
+    const result = await db.delete(Users).where(eq(Users.id, id));
+    const result2 = await db
+      .delete(ScoreTable)
+      .where(eq(ScoreTable.school_id, id));
+    const result3 = await db.delete(Schools).where(eq(Schools.id, id));
 
     return result;
   } catch (error) {
@@ -258,6 +262,18 @@ export const UpdateExamScore = async (
           eq(ScoreTable.student_id, student_id)
         )
       );
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const ChangeUserRole = async (id: string, role: string) => {
+  try {
+    const result = await db
+      .update(Users)
+      .set({ role: role })
+      .where(eq(Users.id, id));
     return result;
   } catch (error) {
     console.log(error);

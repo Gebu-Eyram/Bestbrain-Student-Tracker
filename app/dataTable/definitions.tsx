@@ -2,7 +2,7 @@
 import { DataTableColumnHeader } from "@/app/dataTable/columns";
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal, School, Trash, Trash2Icon } from "lucide-react";
+import { MoreHorizontal, School, Trash, Trash2Icon, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { SCHOOLS } from "@/components/custom/sections/SchoolComps";
@@ -37,13 +37,24 @@ import {
 } from "@/components/ui/alert-dialog";
 import { ToastAction } from "@/components/ui/toast";
 import {
+  ChangeUserRole,
   CreateNewStudentInstances,
   DeleteExam,
   DeleteStudent,
+  DeleteUser,
 } from "../_services/methods";
 import { useContext, useEffect, useState } from "react";
 import { UpdateContentContext } from "../(context)/UpdateContext";
 import { EXAMINATIONS, EXAMSCORES } from "../_services/types";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export const SchoolColumns: ColumnDef<SCHOOLS>[] = [
   {
@@ -441,7 +452,7 @@ export const UserColumns: ColumnDef<USERS>[] = [
       const user = row.original;
 
       return (
-        <div className="max-sm:hidden">
+        <div className="">
           <Avatar>
             <Image
               alt={user.name}
@@ -455,29 +466,17 @@ export const UserColumns: ColumnDef<USERS>[] = [
     },
   },
   {
-    accessorKey: "name",
-    header: ({ column }) => {
-      return (
-        <DataTableColumnHeader className="" column={column} title="Name" />
-      );
-    },
-  },
-  {
     accessorKey: "email",
     header: ({ column }) => {
       return (
-        <DataTableColumnHeader
-          className="max-md:hidden"
-          column={column}
-          title="Email"
-        />
+        <DataTableColumnHeader className="" column={column} title="Email" />
       );
     },
     cell: ({ row }) => {
       const user = row.original;
 
       return (
-        <p className=" max-md:hidden max-sm:max-w-[100px] line-clamp-1">
+        <p className="  max-sm:max-w-[100px] line-clamp-1">
           <span className="line-clamp-1 w-full"> {user.email}</span>
         </p>
       );
@@ -487,33 +486,20 @@ export const UserColumns: ColumnDef<USERS>[] = [
     accessorKey: "role",
     header: ({ column }) => {
       return (
-        <DataTableColumnHeader className="" column={column} title="Role" />
+        <DataTableColumnHeader
+          className="max-md:hidden"
+          column={column}
+          title="Role"
+        />
       );
     },
     cell: ({ row }) => {
       const user = row.original;
 
-      return <Badge className="  capitalize cursor-pointer">{user.role}</Badge>;
-    },
-  },
-  {
-    accessorKey: "createdAt",
-    header: ({ column }) => {
       return (
-        <DataTableColumnHeader
-          className="max-sm:hidden"
-          column={column}
-          title="Date"
-        />
-      );
-    },
-    cell: ({ row }) => {
-      const school = row.original;
-
-      return (
-        <p className=" max-sm:hidden max-sm:max-w-[100px] line-clamp-1">
-          <span className="line-clamp-1 w-full"> {school.createdAt}</span>
-        </p>
+        <Badge className="max-md:hidden  capitalize cursor-pointer">
+          {user.role}
+        </Badge>
       );
     },
   },
@@ -524,6 +510,13 @@ export const UserColumns: ColumnDef<USERS>[] = [
       const user = row.original;
 
       const [open, setOpen] = useState(false);
+      const [roleopen, setRoleOpen] = useState(false);
+
+      const roles = [
+        { value: "admin", label: "Admin" },
+        { value: "user", label: "User" },
+      ];
+      const [selectedRole, setSelectedRole] = useState<string>("user");
       const { UpdateContent, setUpdateContent } =
         useContext(UpdateContentContext);
 
@@ -533,6 +526,49 @@ export const UserColumns: ColumnDef<USERS>[] = [
 
       return (
         <DropdownMenu>
+          <AlertDialog open={roleopen}>
+            <AlertDialogContent>
+              <X
+                className="absolute  w-6 h-6 border-2 rounded-md  p-1 top-3 right-3"
+                onClick={() => setRoleOpen(false)}
+              />
+              <AlertDialogHeader>
+                <AlertDialogTitle>
+                  Change the user's role to either an admin or user.
+                </AlertDialogTitle>
+                <AlertDialogDescription>
+                  Admins have full access to the system while users have limited
+                  access.
+                </AlertDialogDescription>
+                <Select onValueChange={setSelectedRole}>
+                  <SelectTrigger className="w-full ">
+                    <SelectValue placeholder="Select a role" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Roles</SelectLabel>
+                      {roles.map((role, index) => (
+                        <SelectItem key={index} value={role.value}>
+                          {role.label}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </AlertDialogHeader>
+              <AlertDialogFooter className="border-t py-4">
+                <AlertDialogAction
+                  className="ml-auto"
+                  onClick={() => {
+                    ChangeUserRole(user.id, selectedRole);
+                    setRoleOpen(false);
+                  }}
+                >
+                  Done
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-8 w-8 p-0">
               <span className="sr-only">Open menu</span>
@@ -541,12 +577,7 @@ export const UserColumns: ColumnDef<USERS>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              className=""
-              onClick={() => navigator.clipboard.writeText(user.name)}
-            >
-              Copy name
-            </DropdownMenuItem>
+
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(user.email)}
             >
@@ -554,12 +585,13 @@ export const UserColumns: ColumnDef<USERS>[] = [
             </DropdownMenuItem>
             <DropdownMenuSeparator className="bg-border" />
 
-            <DropdownMenuItem className=" h-full mb-1  rounded-sm cursor-pointer font-medium text-white/90 ">
+            <DropdownMenuItem
+              onClick={() => setRoleOpen(true)}
+              className=" h-full mb-1  rounded-sm cursor-pointer font-medium "
+            >
               Change Role
             </DropdownMenuItem>
-            <DropdownMenuItem className="bg-primary h-full  rounded-sm cursor-pointer font-medium text-white/90 ">
-              Delete
-            </DropdownMenuItem>
+            <DeleteUserButton user_id={user.id} />
           </DropdownMenuContent>
         </DropdownMenu>
       );
@@ -603,6 +635,53 @@ export const DeleteStudentButton = ({ student_id }: DeleteStudentProps) => {
               toast({
                 title: "Record deleted ",
                 description: "The record has been permanently deleted.",
+                action: <ToastAction altText="Done">Done</ToastAction>,
+              });
+            }}
+          >
+            Continue
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+};
+
+export const DeleteUserButton = ({ user_id }: { user_id: string }) => {
+  const { toast } = useToast();
+  const router = useRouter();
+  const { UpdateContent, setUpdateContent } = useContext(UpdateContentContext);
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger className="w-full" asChild>
+        <Button
+          variant={"destructive"}
+          className=" gap-2 pl-3 bg-red-700 w-full flex items-center justify-between !important mt-1 cursor-pointer rounded-sm font-medium text-white/90 "
+        >
+          Delete
+          <Trash className="h-4 w-4 p-0" />
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. This will permanently remove every
+            data the user has from our servers.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction
+            className="bg-red-600 hover:bg-red-700 text-white"
+            onClick={() => {
+              DeleteUser(user_id);
+
+              var uniqid = require("uniqid");
+              setUpdateContent(uniqid());
+              toast({
+                title: "User deleted ",
+                description: "The user has been permanently deleted.",
                 action: <ToastAction altText="Done">Done</ToastAction>,
               });
             }}
