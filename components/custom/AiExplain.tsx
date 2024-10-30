@@ -74,7 +74,7 @@ const AiExplain = ({ chartData, otherPrompt }: Props) => {
           <BotMessageSquare size={24} />
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-h-100px  text-sm sm:max-w-[500px]">
+      <DialogContent className="text-sm w-full ">
         <DialogHeader>
           <DialogTitle className="flex gap-2 items-center">
             <Button size={"icon"} variant={"outline"}>
@@ -91,7 +91,7 @@ const AiExplain = ({ chartData, otherPrompt }: Props) => {
             <Loader2 className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900" />
           </div>
         ) : (
-          <ScrollArea className="h-72 ">
+          <ScrollArea className="h-72 w-full">
             <div className="">
               <div className="my-3 mt-6 font-semibold">Explanation:</div>
               <Markdown text={explanation} />

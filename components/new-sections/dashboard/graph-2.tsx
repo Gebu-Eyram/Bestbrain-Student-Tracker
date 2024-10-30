@@ -193,7 +193,9 @@ Each score represents the average for all students in the school for this exam. 
       <CardHeader className="items-center  relative pb-0">
         <AiExplain chartData={chartData} otherPrompt={prompt} />
         <CardTitle>Core Subject Performance</CardTitle>
-        <CardDescription>{recentExam?.name}</CardDescription>
+        <CardDescription>
+          Core Subject Averages from Last Three Exams
+        </CardDescription>
       </CardHeader>
 
       <CardContent className="flex-1 p-0 items-center justify-center">

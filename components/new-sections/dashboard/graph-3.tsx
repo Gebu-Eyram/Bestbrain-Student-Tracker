@@ -5,6 +5,7 @@ import {
   CartesianGrid,
   LabelList,
   Line,
+  LineChart,
   XAxis,
   YAxis,
 } from "recharts";
@@ -186,12 +187,56 @@ export default function DashboardGraph3() {
       <Card className="w-full">
         <CardHeader className="p-4 text-center">
           <AiExplain chartData={examScores} otherPrompt={prompt} />
-          <CardTitle>Last Three Examinaions</CardTitle>
-          <CardDescription>{recentExam?.name}</CardDescription>
+          <CardTitle>Recent School Performance</CardTitle>
+          <CardDescription>
+            Average school scores in last 3 examinations
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <ChartContainer config={chartConfig}>
-            <BarChart accessibilityLayer data={examScores}>
+            <LineChart
+              accessibilityLayer
+              data={examScores}
+              margin={{
+                top: 20,
+                left: 12,
+                right: 12,
+              }}
+            >
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="subject"
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                tickFormatter={(value) => value.slice(0, 3)}
+              />
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent indicator="dashed" />}
+              />
+              <Line
+                dataKey="total"
+                type="natural"
+                radius={4}
+                stroke="var(--color-total)"
+                strokeWidth={2}
+                dot={{
+                  fill: "var(--color-desktop)",
+                }}
+                activeDot={{
+                  r: 6,
+                }}
+              >
+                {/* <LabelList
+                  position="bottom"
+                  offset={12}
+                  className="fill-foreground"
+                  fontSize={12}
+                /> */}
+              </Line>
+            </LineChart>
+            {/* <BarChart accessibilityLayer data={examScores}>
               <CartesianGrid vertical={false} />
 
               <XAxis
@@ -206,10 +251,10 @@ export default function DashboardGraph3() {
                 content={<ChartTooltipContent indicator="dashed" />}
               />
               <Bar dataKey="total" fill="var(--color-total)" radius={4} />
-            </BarChart>
+            </BarChart> */}
           </ChartContainer>
           <CardFooter className="flex flex-col p-2 border-t justify-center">
-            Exam average: {examAverage.toFixed(2)}
+            Your school's average score is {examAverage.toFixed(2)}%
           </CardFooter>
         </CardContent>
       </Card>

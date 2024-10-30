@@ -79,11 +79,11 @@ Each score represents the average for all students in the school for this exam. 
         .select()
         .from(Examinations)
         .orderBy(Examinations.createdAt);
-      setExamsList(result.reverse().slice(0, 3)); // Get last three exams
+      setExamsList(result.reverse().slice(0)); // Get last three exams
       if (result.length > 0) {
         result
           .reverse()
-          .slice(0, 3)
+          .slice(0)
           .forEach((exam) => {
             GetScores(school_id, exam.id.toLocaleString());
           });
@@ -98,7 +98,12 @@ Each score represents the average for all students in the school for this exam. 
       const result = await db
         .select()
         .from(ScoreTable)
-        .where(eq(ScoreTable.school_id, school_id));
+        .where(
+          and(
+            eq(ScoreTable.school_id, school_id),
+            eq(ScoreTable.exams_id, exam_id)
+          )
+        );
 
       const length = result.length;
       const totalScores = sumScores(result);
