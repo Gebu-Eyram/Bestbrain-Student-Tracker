@@ -20,7 +20,7 @@ const ResultSlip = ({ student_id, exams_id }: GridBlockProps) => {
   };
   return (
     <div className="border w-full p-2 sm:p-10 my-6 rounded-xl max-w-screen-lg mx-auto">
-      <Button className="max-lg:hidden" onClick={handleClick}>
+      <Button className="max-lg:hidden dark:hidden" onClick={handleClick}>
         Print
       </Button>
       <div id="resultSlip" ref={resultSlipRef} className="px-2 py-8 sm:px-4">

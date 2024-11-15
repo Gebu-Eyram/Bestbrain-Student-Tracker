@@ -50,7 +50,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { DeleteSchool } from "@/app/_services/methods";
+import { AddExamsToStudent, DeleteSchool } from "@/app/_services/methods";
 interface AlertProps {
   school_id: string;
 }
@@ -330,6 +330,7 @@ export function AddStudentDialogDemo({ school_id, schoolName }: Props) {
   const { toast } = useToast();
   const onSubmit = (values: any) => {
     var uniqid = require("uniqid");
+    const student_id = uniqid();
     const studentExists = STUDENTS?.find(
       (student) => student.name === values.student
     );
@@ -339,7 +340,13 @@ export function AddStudentDialogDemo({ school_id, schoolName }: Props) {
         ? ""
         : schoolName &&
           setTimeout(() => {
-            PostNewStudent(values.student, school_id, schoolName, uniqid());
+            PostNewStudent(values.student, school_id, schoolName, student_id);
+            AddExamsToStudent(
+              values.student,
+              student_id,
+              school_id,
+              schoolName
+            );
             setUpdateContent(uniqid());
             setOpen(false);
           }, 2000);

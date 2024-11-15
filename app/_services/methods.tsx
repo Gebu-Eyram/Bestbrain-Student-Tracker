@@ -11,7 +11,7 @@ import {
   Users,
 } from "@/utils/schema";
 import { and, eq } from "drizzle-orm";
-import { SCHOOLDATABASE } from "./types";
+import { EXAMINATIONS, SCHOOLDATABASE } from "./types";
 
 export const PostNewSchool = async (
   name: string,
@@ -70,7 +70,35 @@ export const PostNewStudent = async (
     id: id,
     school: school,
   });
+
+  console.log("Done");
   return result;
+};
+
+export const AddExamsToStudent = async (
+  student_name: string,
+  student_id: string,
+  school_id: string,
+  school_name: string
+) => {
+  try {
+    const EXAMS = await db
+      .select()
+      .from(Examinations)
+      .where(eq(Examinations.status, "active"));
+    const result = EXAMS.forEach(async (exam: EXAMINATIONS) => {
+      await CreateNewExamScore(
+        student_name,
+        student_id,
+        school_id,
+        exam.id.toString(),
+        school_name
+      );
+    });
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const DeleteSchool = async (id: string) => {
@@ -101,6 +129,17 @@ export const DeleteUser = async (id: string) => {
     const result3 = await db.delete(Schools).where(eq(Schools.id, id));
 
     return result;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const DeleteStudentExamDetails = async (id: string) => {
+  try {
+    const result2 = await db
+      .delete(ScoreTable)
+      .where(eq(ScoreTable.student_id, id));
+    return result2;
   } catch (error) {
     console.log(error);
   }
@@ -291,76 +330,3 @@ export const SetExamsActive = async (id: number) => {
     console.log(error);
   }
 };
-
-// export const UpdateMathScore = async (
-//   exams_id: string,
-//   student_id: string,
-//   data: {
-//     math_A?: number;
-//     math_B?: number;
-//   }
-// ) => {
-//   try {
-//     const result = await db
-//       .update(ScoreTable)
-//       .set(data)
-//       .where(
-//         and(
-//           eq(ScoreTable.exams_id, exams_id),
-//           eq(ScoreTable.student_id, student_id)
-//         )
-//       );
-//     console.log(result);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
-// export const UpdateScienceScore = async (
-//   exams_id: string,
-//   student_id: string,
-//   data: {
-//     science_A?: number;
-//     science_B?: number;
-//     science_tot?: number;
-//   }
-// ) => {
-//   try {
-//     const result = await db
-//       .update(ScoreTable)
-//       .set(data)
-//       .where(
-//         and(
-//           eq(ScoreTable.exams_id, exams_id),
-//           eq(ScoreTable.student_id, student_id)
-//         )
-//       );
-//     console.log(result);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-// export const UpdateEnglishScore = async (
-//   exams_id: string,
-//   student_id: string,
-//   data: {
-//     english_A?: number;
-//     english_B?: number;
-//     english_tot?: number;
-//   }
-// ) => {
-//   try {
-//     const result = await db
-//       .update(ScoreTable)
-//       .set(data)
-//       .where(
-//         and(
-//           eq(ScoreTable.exams_id, exams_id),
-//           eq(ScoreTable.student_id, student_id)
-//         )
-//       );
-//     console.log(result);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };

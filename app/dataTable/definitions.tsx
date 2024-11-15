@@ -41,6 +41,7 @@ import {
   CreateNewStudentInstances,
   DeleteExam,
   DeleteStudent,
+  DeleteStudentExamDetails,
   DeleteUser,
 } from "../_services/methods";
 import { useContext, useEffect, useState } from "react";
@@ -629,7 +630,7 @@ export const DeleteStudentButton = ({ student_id }: DeleteStudentProps) => {
             className="bg-red-600 hover:bg-red-700 text-white"
             onClick={() => {
               DeleteStudent(student_id);
-
+              DeleteStudentExamDetails(student_id);
               var uniqid = require("uniqid");
               setUpdateContent(uniqid());
               toast({
