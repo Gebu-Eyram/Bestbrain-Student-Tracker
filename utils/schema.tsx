@@ -19,7 +19,7 @@ export const Schools = pgTable("schools", {
   contact: varchar("contact", { length: 10 }).notNull(),
   address: varchar("address").notNull(),
   region: varchar("region").notNull(),
-  createdAt: date("created_at")
+  createdAt: varchar("created_at")
     .notNull()
     .default(new Date().toISOString().split("T")[0]),
 });
@@ -45,7 +45,7 @@ export const Students = pgTable("students", {
   school_id: varchar("school_id").notNull(),
   school: varchar("school").notNull(),
   name: varchar("name").notNull(),
-  createdAt: date("created_at")
+  createdAt: varchar("created_at")
     .notNull()
     .default(new Date().toISOString().split("T")[0]),
 });
