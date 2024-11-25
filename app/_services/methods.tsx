@@ -24,6 +24,7 @@ export const PostNewSchool = async (
   picture: string
 ) => {
   try {
+    const date = new Date().toISOString().split("T")[0];
     const result = await db.insert(Schools).values({
       address: address,
       contact: contact,
@@ -33,7 +34,7 @@ export const PostNewSchool = async (
       region: region,
       desc: desc,
       picture: picture,
-      createdAt: new Date().toISOString().split("T")[0],
+      createdAt: date,
     });
     return result;
   } catch (error) {
@@ -65,16 +66,22 @@ export const PostNewStudent = async (
   school: string,
   id: string
 ) => {
-  const result = await db.insert(Students).values({
-    name: name,
-    school_id: school_id,
-    id: id,
-    school: school,
-    createdAt: new Date().toISOString().split("T")[0],
-  });
+  try {
+    const date = new Date().toISOString().split("T")[0];
+    console.log(date);
+    const result = await db.insert(Students).values({
+      name: name,
+      school_id: school_id,
+      id: id,
+      school: school,
+      createdAt: date,
+    });
 
-  console.log("Done");
-  return result;
+    console.log("Done");
+    return result;
+  } catch (error: any) {
+    console.log(error);
+  }
 };
 
 export const AddExamsToStudent = async (
