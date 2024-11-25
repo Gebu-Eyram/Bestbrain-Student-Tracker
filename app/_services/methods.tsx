@@ -1,3 +1,4 @@
+"use server";
 import { STUDENTS } from "@/components/custom/sections/admin/pageComp/StudentComponents";
 import { SCHOOLS } from "@/components/custom/sections/SchoolComps";
 
@@ -158,7 +159,7 @@ export const DeleteExam = async (id: number) => {
   }
 };
 
-export function getSchoolsByMonth(schools: SCHOOLS[]) {
+export async function getSchoolsByMonth(schools: SCHOOLS[]) {
   const schoolsByMonth = {};
 
   schools.forEach((school) => {
