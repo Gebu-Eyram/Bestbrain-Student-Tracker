@@ -340,7 +340,7 @@ export function SchoolStats() {
           </Button>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{UsersList.length - 1}</div>
+          <div className="text-2xl font-bold">{UsersList.length}</div>
           <p className="text-xs text-muted-foreground">
             Each user has their assigned school
           </p>

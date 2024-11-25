@@ -1,3 +1,4 @@
+import { create } from "domain";
 import { int } from "drizzle-orm/mysql-core";
 import {
   boolean,
@@ -27,9 +28,7 @@ export const Examinations = pgTable("examinations", {
   id: serial("id").primaryKey(),
   name: varchar("name").notNull().unique(),
   status: varchar("status").notNull().default("inactive"),
-  createdAt: date("created_at")
-    .notNull()
-    .default(new Date().toISOString().split("T")[0]),
+  createdAt: date("created_at").notNull(),
   type: varchar("type", { length: 10 }).notNull(),
 });
 
@@ -117,16 +116,4 @@ export const ScoreTable = pgTable("scoreTable", {
 
   //Overall
   overall: integer("overall").default(0),
-});
-
-export const schoolDatabase = pgTable("schoolDatabase", {
-  id: serial("id").primaryKey(),
-  schoolName: text("school_name"),
-  headName: text("head_name"),
-  contact: text("contact"),
-  location: text("location"),
-  email: text("email"),
-  district: text("district"),
-  region: text("region"),
-  type: text("type"),
 });

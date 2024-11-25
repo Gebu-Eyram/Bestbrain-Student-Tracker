@@ -5,7 +5,6 @@ import { SCHOOLS } from "@/components/custom/sections/SchoolComps";
 import { db } from "@/utils/db";
 import {
   Examinations,
-  schoolDatabase,
   Schools,
   ScoreTable,
   Students,
@@ -34,6 +33,7 @@ export const PostNewSchool = async (
       region: region,
       desc: desc,
       picture: picture,
+      createdAt: new Date().toISOString().split("T")[0],
     });
     return result;
   } catch (error) {
@@ -70,6 +70,7 @@ export const PostNewStudent = async (
     school_id: school_id,
     id: id,
     school: school,
+    createdAt: new Date().toISOString().split("T")[0],
   });
 
   console.log("Done");
@@ -183,33 +184,7 @@ export const PostNewExmaination = async (name: string, type: string) => {
     const result = await db.insert(Examinations).values({
       name: name,
       type: type,
-    });
-    return result;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const PostNewSchoolDetails = async (
-  schoolName: string,
-  contact: string,
-  email: string,
-  headName: string,
-  location: string,
-  district: string,
-  region: string,
-  type: string
-) => {
-  try {
-    const result = await db.insert(schoolDatabase).values({
-      schoolName: schoolName,
-      contact: contact,
-      district: district,
-      email: email,
-      headName: headName,
-      location: location,
-      region: region,
-      type: type,
+      createdAt: new Date().toISOString().split("T")[0],
     });
     return result;
   } catch (error) {

@@ -12,7 +12,7 @@ export async function POST(req: Request, res: Response) {
     generationConfig: {
       temperature: 1,
       topP: 0.95,
-      topK: 64,
+      topK: 36,
       maxOutputTokens: 8192,
       responseMimeType: "text/plain",
     },
