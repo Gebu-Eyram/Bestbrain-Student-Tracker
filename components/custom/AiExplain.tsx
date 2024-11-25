@@ -40,7 +40,7 @@ const AiExplain = ({ chartData, otherPrompt }: Props) => {
       "Explain this data that was used to plot a graph and explain the trends as though you were explaining to a business professional.This is a Ghanaian educational data. Please be formal and concise but also straightforward and with flair. Mention figures wherever applicable . Please limit the words and use markdown where applicable to make it look elegant. The explanation should not exceed 120 words. Ensure that your values are right." +
       otherPrompt;
     const suggestionprompt =
-      'Make informed suggestions to a business professional based on the data. Please be formal and concise but also straightforward and with flair. Mention figures wherever applicable. This is a Ghanaian educational data . Please limit the words and use JSON parsable format only. Make at most three suggestions and at least one suggestion but make sure each suggestion does not exceed 20 words. Ensure that your values are right. Just return the array without any external text such as ```json ["suggestion1", "suggestion2"] ``` In each object, please add a reason for the suggestion. Never under any circumstance should you add  ```json``` to the response. ';
+      'Make informed suggestions to a business professional based on the data. Please be formal and concise but also straightforward and with flair. Mention figures wherever applicable.If you use tables, make sure your table does not exceed 4 columns. This is a Ghanaian educational data . Please limit the words and use JSON parsable format only. Make at most three suggestions and at least one suggestion but make sure each suggestion does not exceed 20 words. Ensure that your values are right. Just return the array without any external text such as ```json ["suggestion1", "suggestion2"] ``` In each object, please add a reason for the suggestion. Never under any circumstance should you add  ```json``` to the response. ';
     const FinalPrompt = JSON.stringify(data) + ", " + prompt;
     const FinalSuggestionPrompt =
       JSON.stringify(data) + ", " + suggestionprompt;
@@ -108,9 +108,9 @@ const AiExplain = ({ chartData, otherPrompt }: Props) => {
                     >
                       <span className="flex h-2 w-2 translate-y-1 rounded-full bg-sky-500" />
                       <div className="space-y-1">
-                        <h1 className="text-sm font-medium leading-normal">
+                        <p className="text-sm font-bold  tracking-wide leading-normal">
                           {suggestion.suggestion}
-                        </h1>
+                        </p>
                         <p className="text-sm text-muted-foreground">
                           {suggestion.reason}
                         </p>

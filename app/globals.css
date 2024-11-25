@@ -9,13 +9,23 @@ html {
 }
 
 #ai h1 {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 600;
+  text-decoration: underline;
+  margin-bottom: 1rem;
 }
 
 #ai h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+
+  margin-bottom: 0.5rem;
+}
+#ai h3 {
   font-size: 1.1rem;
   font-weight: 600;
+
+  margin-bottom: 0.2rem;
 }
 
 #ai p {
