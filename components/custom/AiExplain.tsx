@@ -92,7 +92,7 @@ const AiExplain = ({ chartData, otherPrompt }: Props) => {
           </div>
         ) : (
           <ScrollArea className="h-72 w-full">
-            <div className="">
+            <div className="" id="ai">
               <div className="my-3 mt-6 font-semibold">Explanation:</div>
               <Markdown text={explanation} />
               <div className="flex-flex-col gap-2">
