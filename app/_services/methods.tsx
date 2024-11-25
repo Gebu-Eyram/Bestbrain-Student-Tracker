@@ -67,7 +67,7 @@ export const PostNewStudent = async (
 ) => {
   try {
     const date = new Date().toISOString().split("T")[0];
-    console.log(date);
+
     const result = await db.insert(Students).values({
       name: name,
       school_id: school_id,

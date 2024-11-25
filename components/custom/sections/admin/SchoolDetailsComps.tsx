@@ -301,13 +301,19 @@ export function AddStudentDialogDemo({ school_id, schoolName }: Props) {
     school: string,
     id: string
   ) => {
-    const result = await db.insert(Students).values({
-      name: name,
-      school_id: school_id,
-      id: id,
-      school: school,
-    });
-    return result;
+    const date = new Date().toISOString().split("T")[0];
+    try {
+      const result = await db.insert(Students).values({
+        name: name,
+        school_id: school_id,
+        id: id,
+        school: school,
+        createdAt: date,
+      });
+      return result;
+    } catch (error: any) {
+      console.error(error);
+    }
   };
 
   const GetSchool = async (school_id: string) => {

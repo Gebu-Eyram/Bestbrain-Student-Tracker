@@ -75,8 +75,8 @@ const ExamsCard = () => {
     <div className="pb-4 sm:pb-8 max-sm:hidden">
       <Tabs defaultValue="list" className="w-full h-full">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="list">List</TabsTrigger>
-          <TabsTrigger value="register">Register</TabsTrigger>
+          <TabsTrigger value="list">Exams List</TabsTrigger>
+          <TabsTrigger value="register">Create Exam</TabsTrigger>
         </TabsList>
         <TabsContent value="list" className="h-full">
           <ScrollArea className="h-full w-full overflow-x-auto">

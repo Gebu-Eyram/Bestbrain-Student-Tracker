@@ -1,6 +1,6 @@
 "use client";
 
-import { GitCommitVertical } from "lucide-react";
+import { ActivityIcon, GitCommitVertical } from "lucide-react";
 import { Line, LineChart } from "recharts";
 
 const chartConfig = {
@@ -121,7 +121,12 @@ export function AreaChartComp({ data }: any) {
   return (
     <Card>
       <CardHeader className="relative">
-        <CardTitle>Area Chart</CardTitle>
+        <CardTitle className="flex items-center ">
+          <Button variant={"outline"} size={"icon"}>
+            <ActivityIcon size={24} />
+          </Button>
+          <span className="ml-2 sm:text-lg lg:text-xl">Activity</span>
+        </CardTitle>
         <CardDescription>Students and schools by month</CardDescription>
         <AiExplain chartData={data} />
       </CardHeader>
@@ -211,12 +216,18 @@ export function AreaChartComp({ data }: any) {
 import { Bar, BarChart } from "recharts";
 import { useMemo, useState } from "react";
 import AiExplain from "../AiExplain";
+import { Button } from "@/components/ui/button";
 
 export function BarChartComp({ data }: any) {
   return (
     <Card>
       <CardHeader className="relative">
-        <CardTitle>Bar Chart</CardTitle>
+        <CardTitle className="flex items-center ">
+          <Button variant={"outline"} size={"icon"}>
+            <ActivityIcon size={24} />
+          </Button>
+          <span className="ml-2 sm:text-lg lg:text-xl">Activity</span>
+        </CardTitle>
         <CardDescription className=" line-clamp-1 max-w-64">
           Students and schools by month
         </CardDescription>
