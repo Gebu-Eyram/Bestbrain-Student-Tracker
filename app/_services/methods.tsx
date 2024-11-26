@@ -1,3 +1,4 @@
+"use server";
 import { STUDENTS } from "@/components/custom/sections/admin/pageComp/StudentComponents";
 import { SCHOOLS } from "@/components/custom/sections/SchoolComps";
 
