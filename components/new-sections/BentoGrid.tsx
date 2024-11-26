@@ -169,12 +169,6 @@ export const SchoolDetailsBlock = () => {
   );
 };
 
-const AboutBlock = () => (
-  <Block className="col-span-12 row-span-2  md:col-span-6 xl:col-span-4">
-    <DashboardGraph2 />
-  </Block>
-);
-
 export const StudentTableBlock = () => {
   const [school_id, setSchool_id] = useState("");
   const { user } = useKindeBrowserClient();
@@ -195,10 +189,3 @@ export const StudentLinkBlock = () => {
     </Block>
   );
 };
-
-const LocationBlock = () => (
-  <Block className="col-span-12  md:col-span-6 xl:col-span-4">
-    <FiMapPin className="text-3xl" />
-    <p className="text-center text-lg text-zinc-400">Cyberspace</p>
-  </Block>
-);
