@@ -1,5 +1,5 @@
 "use client";
-import { PostNewSchoolDetails } from "@/app/_services/methods";
+
 import NewSection from "@/components/custom/sections/admin/NewSection";
 import {
   HeaderBlock,
