@@ -5,15 +5,7 @@ import { eq } from "drizzle-orm";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-import {
-  Calendar,
-  Loader,
-  Loader2Icon,
-  Mail,
-  Map,
-  PhoneCall,
-  X,
-} from "lucide-react";
+import { Calendar, Mail, Map, PhoneCall, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -39,6 +31,7 @@ import {
   StudentTableAdmin,
   StudentTableUser,
 } from "@/components/custom/sections/admin/SchoolDetailsComps";
+import Loader from "@/components/custom/parts/Loader";
 
 const SchoolDetailsUser = () => {
   const { user } = useKindeBrowserClient();
@@ -337,7 +330,7 @@ const UserStudents = () => {
     return (
       <div className="w-full h-[90vh] flex items-center justify-center">
         <div>
-          <Loader2Icon className="w-10 h-10 text-muted-foreground animate-spin" />
+          <Loader />
         </div>
       </div>
     );

@@ -28,7 +28,7 @@ const page = () => {
       >
         <HeaderBlock />
         <SocialsBlock />
-        <DashboardGraph1 />
+        {/* <DashboardGraph1 /> */}
         <StudentTableBlock />
         <DashboardGraph3 />
       </motion.div>

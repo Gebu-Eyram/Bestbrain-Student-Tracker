@@ -62,7 +62,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={` ${inter.variable} ${sora.variable}`}>
+      <body className={` bg-background ${inter.variable} ${sora.variable}`}>
         <main>
           <ThemeProvider
             attribute="class"

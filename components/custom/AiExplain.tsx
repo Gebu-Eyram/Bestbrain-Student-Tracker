@@ -12,15 +12,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Bot,
-  BotIcon,
-  BotMessageSquare,
-  Lightbulb,
-  Loader2,
-} from "lucide-react";
+import { BotIcon, BotMessageSquare, Lightbulb } from "lucide-react";
 import Markdown from "./parts/Markdown";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import Loader from "./parts/Loader";
 
 interface Props {
   chartData: any;
@@ -40,7 +35,7 @@ const AiExplain = ({ chartData, otherPrompt }: Props) => {
       "Explain this data that was used to plot a graph and explain the trends as though you were explaining to a business professional.This is a Ghanaian educational data. Please be formal and concise but also straightforward and with flair. Mention figures wherever applicable . Please limit the words and use markdown where applicable to make it look elegant. The explanation should not exceed 120 words. Ensure that your values are right." +
       otherPrompt;
     const suggestionprompt =
-      'Make very informed suggestions to the school owner based on the data, adressing key deficiencies. Please be formal and concise but also straightforward and with flair. Mention figures wherever applicable . Please limit the words and use JSON parsable format only. Make at most three suggestions and at least one suggestion but make sure each suggestion does not exceed 20 words. Ensure that your values are right. Just return the array without any external text such as ```json ["suggestion1", "suggestion2"] ``` In each object, please add a reason for the suggestion. Never under any circumstance should you add  ```json``` to the response. "```json``` should never be used under any circumstances. DO NOT ADD ANYTHING ELSE TO THE RESPONSE. Just the array of suggestions. Return an array = [{suggestion:`jdjdjdj`, reason:`1ndndi`}] ';
+      "Make very informed suggestions to the school owner based on the data, adressing key deficiencies. Please be formal and concise but also straightforward and with flair. Mention figures wherever applicable . Please limit the words and use JSON parsable format only. Make at most three suggestions and at least one suggestion but make sure each suggestion does not exceed 20 words.";
     const FinalPrompt = JSON.stringify(data) + ", " + prompt;
     const FinalSuggestionPrompt =
       JSON.stringify(data) + ", " + suggestionprompt;
@@ -52,7 +47,11 @@ const AiExplain = ({ chartData, otherPrompt }: Props) => {
       const suggestionresult = await chatSession.sendMessage(
         FinalSuggestionPrompt
       );
-      const JsonSuggestions = suggestionresult.response.text();
+      const JsonSuggestions = suggestionresult.response
+        .text()
+        .replace("json", "")
+        .replace("```", "")
+        .replace("```", "");
 
       setSuggestions(JSON.parse(JsonSuggestions));
       setLoading(false);
@@ -89,7 +88,7 @@ const AiExplain = ({ chartData, otherPrompt }: Props) => {
         </DialogHeader>
         {loading ? (
           <div className="flex items-center justify-center h-32">
-            <Loader2 className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900" />
+            <Loader />
           </div>
         ) : (
           <ScrollArea className="h-72 w-full">
