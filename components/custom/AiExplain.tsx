@@ -35,7 +35,7 @@ const AiExplain = ({ chartData, otherPrompt }: Props) => {
       "Explain this data that was used to plot a graph and explain the trends as though you were explaining to a business professional.This is a Ghanaian educational data. Please be formal and concise but also straightforward and with flair. Mention figures wherever applicable . Please limit the words and use markdown where applicable to make it look elegant. The explanation should not exceed 120 words. Ensure that your values are right." +
       otherPrompt;
     const suggestionprompt =
-      "Make very informed suggestions to the school owner based on the data, adressing key deficiencies. Please be formal and concise but also straightforward and with flair. Mention figures wherever applicable . Please limit the words and use JSON parsable format only. Make at most three suggestions and at least one suggestion but make sure each suggestion does not exceed 20 words.";
+      "Make very informed suggestions to the school owner based on the data, adressing key deficiencies. Please be formal and concise but also straightforward and with flair. Mention figures wherever applicable . Please limit the words and use JSON parsable format only. Make at most three suggestions and at least one suggestion but make sure each suggestion does not exceed 20 words. Just return [ { suggestion: 'Your suggestion', reason: 'Reason for your suggestion' } ]";
     const FinalPrompt = JSON.stringify(data) + ", " + prompt;
     const FinalSuggestionPrompt =
       JSON.stringify(data) + ", " + suggestionprompt;
@@ -52,6 +52,7 @@ const AiExplain = ({ chartData, otherPrompt }: Props) => {
         .replace("json", "")
         .replace("```", "")
         .replace("```", "");
+      console.log(JsonSuggestions);
 
       setSuggestions(JSON.parse(JsonSuggestions));
       setLoading(false);
