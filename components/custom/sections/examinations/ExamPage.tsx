@@ -102,12 +102,14 @@ const ExaminationsDashboard = () => {
         <AlertDialog open={open}>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogAction
+              <Button
+                size={"icon"}
+                variant={"ghost"}
                 onClick={() => setOpen(false)}
-                className="w-fit !bg-transparent border absolute right-3 top-3 p-2 px-3"
+                className="w-fit !bg-transparent text-foreground absolute right-2 p-2 min-w-fit top-2 "
               >
                 <X className="w-4 h-4" />
-              </AlertDialogAction>
+              </Button>
               <AlertDialogTitle>Choose your examination</AlertDialogTitle>
               <AlertDialogDescription>
                 To change the examination please refresh the page.
@@ -140,7 +142,11 @@ const ExaminationsDashboard = () => {
         </AlertDialog>
         <div className="flex gap-4 w-fit">
           <h1 className="text-2xl sm:text-3xl font-semibold">Subjects</h1>
-          <Button onClick={() => setOpen(true)}>
+          <Button
+            onClick={() => setOpen(true)}
+            size={"icon"}
+            variant={"outline"}
+          >
             <Settings className="w-4 h-4" />
           </Button>
         </div>

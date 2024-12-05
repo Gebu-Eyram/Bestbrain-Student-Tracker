@@ -259,9 +259,9 @@ const Analytics = () => {
         <AlertDialogContent>
           <AlertDialogHeader>
             <Button
-              variant={"outline"}
+              variant={"ghost"}
               onClick={() => setOpen(false)}
-              className="w-fit !bg-transparent border absolute right-3 top-3 p-2 px-3"
+              className="w-fit  absolute right-3 top-3 p-2 px-3"
             >
               <X className="w-4 h-4" />
             </Button>
