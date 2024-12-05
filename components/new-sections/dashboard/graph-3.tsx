@@ -183,14 +183,12 @@ export default function DashboardGraph3() {
   };
 
   return (
-    <Block className="col-span-12 row-span-1 h-fit p-0 border-none md:col-span-6 xl:col-span-4">
+    <Block className="col-span-12 relative row-span-1 h-fit p-0 border-none md:col-span-6 xl:col-span-4">
       <Card className="w-full">
-        <CardHeader className="p-4 text-center">
+        <CardHeader className="p-4 text-center relative">
           <AiExplain chartData={examScores} otherPrompt={prompt} />
           <CardTitle>Recent School Performance</CardTitle>
-          <CardDescription>
-            Average school scores in last 3 examinations
-          </CardDescription>
+          <CardDescription>Last 3 exams averages.</CardDescription>
         </CardHeader>
         <CardContent>
           <ChartContainer config={chartConfig}>
@@ -253,8 +251,8 @@ export default function DashboardGraph3() {
               <Bar dataKey="total" fill="var(--color-total)" radius={4} />
             </BarChart> */}
           </ChartContainer>
-          <CardFooter className="flex flex-col p-2 border-t justify-center">
-            Your school's average score is {examAverage.toFixed(2)}%
+          <CardFooter className="flex flex-col p-2 pt-4 mt-2 border-t justify-center">
+            School average score: {examAverage.toFixed(2)}%
           </CardFooter>
         </CardContent>
       </Card>

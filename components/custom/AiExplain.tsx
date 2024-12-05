@@ -77,8 +77,12 @@ const AiExplain = ({ chartData, otherPrompt }: Props) => {
       <DialogContent className="text-sm w-full ">
         <DialogHeader>
           <DialogTitle className="flex gap-2 items-center">
-            <Button size={"icon"} variant={"outline"}>
-              <BotIcon size={24} className="" />
+            <Button
+              size={"icon"}
+              variant={"outline"}
+              className="p-1 flex items-center justify-center"
+            >
+              <BotIcon size={24} className="h-4 w-4" />
             </Button>
             AI Explanation
           </DialogTitle>

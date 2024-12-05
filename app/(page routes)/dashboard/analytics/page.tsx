@@ -298,11 +298,7 @@ const Analytics = () => {
       </AlertDialog>
 
       <CardHeader className="p-4 text-center">
-        <Button
-          variant={"outline"}
-          className="w-fit p-2"
-          onClick={() => setOpen(true)}
-        >
+        <Button variant={"outline"} size={"icon"} onClick={() => setOpen(true)}>
           <Settings className="w-4 h-4" />
         </Button>
 
