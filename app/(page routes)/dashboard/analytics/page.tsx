@@ -194,7 +194,7 @@ const Analytics = () => {
     Eg5: 93 is in the range 80 to 100 and should be considered HIGHEST according to the grading scale.
     Eg6: 29.99 is in the range 25 to 29 and should be considered LOW according to the grading scale.`;
     const suggestionprompt =
-      'Make informed suggestions to a business professional based on the data. Please be formal and concise but also straightforward and with flair. Mention figures wherever applicable. This is a Ghanaian educational data . Please limit the words and use JSON parsable format only. Make at most three suggestions and at least one suggestion but make sure each suggestion does not exceed 20 words. Ensure that your values are right. Just return the array without any external text such as ```json ["suggestion1", "suggestion2"] ``` In each object, please add a reason for the suggestion. Never under any circumstance should you add  ```json``` to the response. ';
+      "Make informed suggestions to a business professional based on the data. Please be formal and concise but also straightforward and with flair. Mention figures wherever applicable. This is a Ghanaian educational data . Please limit the words and use JSON parsable format only. Make at most three suggestions and at least one suggestion but make sure each suggestion does not exceed 20 words. ";
     const FinalPrompt = JSON.stringify(data) + ", " + prompt;
     const FinalSuggestionPrompt =
       JSON.stringify(data) + ", " + suggestionprompt;
@@ -204,8 +204,11 @@ const Analytics = () => {
       const suggestionresult = await chatSession.sendMessage(
         FinalSuggestionPrompt
       );
-      const JsonSuggestions = suggestionresult.response.text();
-
+      const JsonSuggestions = suggestionresult.response
+        .text()
+        .replace("json", "")
+        .replace("````", "")
+        .replace("```", "");
       setLoading(false);
       setExplanation(result.response.text());
     } catch (error) {
@@ -309,9 +312,17 @@ const Analytics = () => {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Markdown text={studentExplanation} />
-        <Separator className="my-8" />
-        <Markdown text={explanation} />
+        {loading ? (
+          <div className="flex items-center justify-center h-96">
+            <Loader />
+          </div>
+        ) : (
+          <div>
+            <Markdown text={studentExplanation} />
+            <Separator className="my-8" />
+            <Markdown text={explanation} />
+          </div>
+        )}
       </CardContent>
     </Card>
   );
@@ -341,5 +352,6 @@ import {
 import { chatSession } from "@/utils/AiModel";
 import Markdown from "@/components/custom/parts/Markdown";
 import { set } from "react-hook-form";
+import Loader from "@/components/custom/parts/Loader";
 
 export default Analytics;
